@@ -1,13 +1,77 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+    .scroll-hide::-webkit-scrollbar{
+        display: none !important;
+    }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+td,tr{
+    padding: 5px;
 }
+
+ul.wtree {
+    margin-left: 20px;
+  }
+
+.wtree li {
+    list-style-type: none;
+    margin: 10px 0 10px 20px;
+    position: relative;
+  }
+  .wtree li:before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    width: 20px;
+    height: 15px;
+  }
+  .wtree li:after {
+    position: absolute;
+    content: "";
+    top: 5px;
+    left: -20px;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    width: 20px;
+    height: 100%;
+  }
+  .wtree li:last-child:after {
+    display: none;
+  }
+  .wtree li span {
+    display: block;
+    border: 1px solid #ddd;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .wtree li span:hover, .wtree li span:focus {
+    background: #eee;
+    color: #000;
+    border: 1px solid #aaa;
+  }
+  .wtree li span:hover + ul li span, .wtree li span:focus + ul li span {
+    background: #eee;
+    color: #000;
+    border: 1px solid #aaa;
+  }
+  .wtree li span:hover + ul li:after, .wtree li span:hover + ul li:before, .wtree li span:focus + ul li:after, .wtree li span:focus + ul li:before {
+    border-color: #aaa;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{
+    display: none;
+  }
