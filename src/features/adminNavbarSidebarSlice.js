@@ -14,6 +14,6 @@ const adminNavbarSidebarSlice = createSlice({
     }
 })
 
-export const { toggleIsOpen } = adminNavbarSidebarSlice.actions()
+export const { toggleIsOpen } = adminNavbarSidebarSlice.actions
 
 export default adminNavbarSidebarSlice.reducer

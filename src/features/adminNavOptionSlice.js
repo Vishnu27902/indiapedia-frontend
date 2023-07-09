@@ -55,6 +55,6 @@ const adminNavOptionSlice = createSlice({
     }
 })
 
-export const { toggle } = adminNavOptionSlice.actions()
+export const { toggle } = adminNavOptionSlice.actions
 
 export default adminNavOptionSlice.reducer
