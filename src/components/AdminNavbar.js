@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from "react-redux"
 function AdminNavbar() {
     const isSidebarOpen = useSelector((state) => state.adminNavbarSidebar.isOpen)
     const dispatch = useDispatch()
+
+    const optionStates = useSelector(state => state.adminNavOption)
+
     return (
         <>
             <nav
@@ -24,22 +27,22 @@ function AdminNavbar() {
                     className="hidden justify-between md:gap-20 lg:flex"
                 >
                     <button
-                        className="grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50"
+                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.home ? "bg-violet-500" : ""}`}
                     >
                         Home
                     </button>
                     <button
-                        className="grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50"
+                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.states ? "bg-violet-500" : ""}`}
                     >
                         States
                     </button>
                     <button
-                        className="grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50"
+                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.cities ? "bg-violet-500" : ""}`}
                     >
                         Cities
                     </button>
                     <button
-                        className="grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50"
+                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.users ? "bg-violet-500" : ""}`}
                     >
                         Users
                     </button>
@@ -66,7 +69,7 @@ function AdminNavbar() {
                         Sign Out
                     </button>
                     <button
-                        className="p-2 grid items-center rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50"
+                        className={`p-2 grid items-center rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.dashboard ? "bg-violet-500" : ""}`}
                     >
                         Dashboard
                     </button>
