@@ -1,4 +1,3 @@
-import Footer from "./Footer"
 import Notification from "./Notification";
 
 import { Outlet } from "react-router-dom";
@@ -17,7 +16,6 @@ function AdminLayout() {
             <div className="h-screen transition-all">
                 <AdminNavbar />
                 <Outlet />
-                <Footer />
             </div>
         </>
     )

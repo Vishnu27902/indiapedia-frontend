@@ -1,4 +1,5 @@
 import HomeBackground from "../images/HomeBackground.jpg"
+import Footer from "./Footer"
 
 function AdminHome() {
   return (
@@ -51,6 +52,7 @@ function AdminHome() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
