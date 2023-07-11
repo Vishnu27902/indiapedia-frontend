@@ -9,6 +9,8 @@ import AdminInfoPage from "./components/AdminInfoPage"
 import AdminEditState from "./components/AdminEditState"
 import AdminEditUser from "./components/AdminEditUser"
 import AdminEditCity from "./components/AdminEditCity"
+import AdminStates from "./components/AdminStates"
+import AdminAddStates from "./components/AdminAddStates"
 
 function App() {
 
@@ -23,7 +25,8 @@ function App() {
             <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminHome />} />
                 <Route path="states">
-                    <Route index element={<AdminInfoPage />} />
+                    <Route index element={<AdminStates />} />
+                    <Route path="add" element={<AdminAddStates />} />
                     <Route path=":id" element={<AdminEditState />} />
                 </Route>
                 <Route path="cities" element={<AdminInfoPage />} >

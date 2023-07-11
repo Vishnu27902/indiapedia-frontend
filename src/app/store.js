@@ -7,6 +7,7 @@ import signUpReducer from "../features/signUpSlice";
 import signInReducer from "../features/SignInSlice";
 import adminNavOptionReducer from "../features/adminNavOptionSlice";
 import adminNavbarSidebarReducer from "../features/adminNavbarSidebarSlice";
+import adminAddStateReducer from "../features/adminAddStateSlice";
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         signUp: signUpReducer,
         signIn: signInReducer,
         adminNavOption: adminNavOptionReducer,
-        adminNavbarSidebar: adminNavbarSidebarReducer
+        adminNavbarSidebar: adminNavbarSidebarReducer,
+        adminAddState: adminAddStateReducer
     }
 })

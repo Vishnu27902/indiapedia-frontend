@@ -13,14 +13,15 @@ const notification = createSlice({
         notify: (state, action) => {
             state[action.payload.status] = true
             state.message = action.payload.message
-            setTimeout(() => {
-                state[action.payload.status] = false
-                state.message = ""
-            }, 3000)
+        },
+        revokeNotify: (state, action) => {
+            state.success = false
+            state.error = false
+            state.message = ""
         }
     }
 })
 
-export const { notify } = notification.actions
+export const { notify, revokeNotify } = notification.actions
 
 export default notification.reducer
