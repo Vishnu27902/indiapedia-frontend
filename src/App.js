@@ -11,6 +11,9 @@ import AdminEditUser from "./components/AdminEditUser"
 import AdminEditCity from "./components/AdminEditCity"
 import AdminStates from "./components/AdminStates"
 import AdminAddStates from "./components/AdminAddStates"
+import AdminAddCities from "./components/AdminAddCities"
+import AdminCities from "./components/AdminCities"
+import AdminAddUsers from "./components/AdminAddUsers"
 
 function App() {
 
@@ -29,12 +32,14 @@ function App() {
                     <Route path="add" element={<AdminAddStates />} />
                     <Route path=":id" element={<AdminEditState />} />
                 </Route>
-                <Route path="cities" element={<AdminInfoPage />} >
-                    <Route index element={<AdminInfoPage />} />
+                <Route path="cities">
+                    <Route index element={<AdminCities />} />
+                    <Route path="add" element={<AdminAddCities />} />
                     <Route path=":id" element={<AdminEditCity />} />
                 </Route>
-                <Route path="users" element={<AdminInfoPage />} >
+                <Route path="users">
                     <Route index element={<AdminInfoPage />} />
+                    <Route path="add" element={<AdminAddUsers />} />
                     <Route path=":id" element={<AdminEditUser />} />
                 </Route>
                 <Route path="dashboard" element={<Dashboard />} />

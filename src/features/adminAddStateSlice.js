@@ -2,10 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../api/axios";
 
 const initialState = {
-    name: "",
-    code: "",
-    img: "",
-    mainContent: "",
     success: false,
     error: false,
     message: ""
@@ -19,9 +15,6 @@ const adminAddStateSlice = createSlice({
     name: "adminAddState",
     initialState,
     reducers: {
-        addState: (state, action) => {
-            state = action.payload
-        },
         revokeStatus: (state, action) => {
             state.success = false
             state.error = false

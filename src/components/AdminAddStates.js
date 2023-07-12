@@ -33,8 +33,6 @@ function AdminAddStates() {
   const dispatch = useDispatch()
   const adminAddStateStates = useSelector((state) => state.adminAddState)
 
-  console.log(state)
-
   function addMoreContent() {
     setContentList((prev) => [...prev,
     <AdminContent
@@ -49,22 +47,22 @@ function AdminAddStates() {
 
   function addState(e) {
     e.preventDefault()
-    // dispatch(addState(state))
     dispatch(postState(state))
-    if (adminAddStateStates.success) {
-      dispatch(notify({ status: "success", message: adminAddStateStates.message }))
-      setTimeout(() => {
-        dispatch(revokeNotify())
-        dispatch(revokeStatus())
-      }, 3000)
-    }  
-    if(adminAddStateStates.error){
-      dispatch(notify({ status: "error", message: adminAddStateStates.message }))
-      setTimeout(() => {
-        dispatch(revokeNotify())
-        dispatch(revokeStatus())
-      }, 3000)
-    }
+  }
+
+  if (adminAddStateStates.success) {
+    dispatch(notify({ status: "success", message: adminAddStateStates.message }))
+    setTimeout(() => {
+      dispatch(revokeNotify())
+      dispatch(revokeStatus())
+    }, 3000)
+  }
+  if (adminAddStateStates.error) {
+    dispatch(notify({ status: "error", message: adminAddStateStates.message }))
+    setTimeout(() => {
+      dispatch(revokeNotify())
+      dispatch(revokeStatus())
+    }, 3000)
   }
 
   return (
@@ -84,11 +82,12 @@ function AdminAddStates() {
           </h1>
           <label
             className='text-md'
-            htmlFor="name"
+            htmlFor="code"
           >
             State Code :
           </label>
           <input
+            id="code"
             className='text-md border border-black outline-black rounded-md px-2 py-1'
             type='text'
             onChange={(e) => rootDispatch({ type: "code", payload: e.target.value })}
@@ -101,6 +100,7 @@ function AdminAddStates() {
             Name :
           </label>
           <input
+            id="name"
             className='text-md border border-black outline-black rounded-md px-2 py-1'
             type='text'
             onChange={(e) => rootDispatch({ type: "name", payload: e.target.value })}
