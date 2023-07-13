@@ -52,9 +52,9 @@ const authSlice = createSlice({
                 state.error = false
                 state.success = true
                 state.message = MESSAGE.success
-                state.username = action.username
-                state.accessToken = action.accessToken
-                state.role = action.role
+                state.username = action.payload.username
+                state.accessToken = action.payload.accessToken
+                state.role = action.payload.role
             })
     }
 })

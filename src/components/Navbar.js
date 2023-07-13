@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
-
 import { useSelector, useDispatch } from "react-redux"
 import { toggleOpen } from "../features/navSidebarSlice"
 import { login, register } from "../features/accountOptionSlice"
+import { reset } from "../features/authSlice"
 
 import NavbarSidebar from "./NavbarSidebar"
 import SignInSignUp from "./SignInSignUp"
@@ -15,9 +15,11 @@ function Navbar() {
     const homeSelected = useSelector((state) => state.optionSelected.home)
     const statesSelected = useSelector((state) => state.optionSelected.states)
     const citiesSelected = useSelector((state) => state.optionSelected.cities)
+    const dashboardSelected = useSelector((state) => state.optionSelected.dashboard)
     const openNavSidebar = useSelector((state) => state.navSidebar.openNavSidebar)
     const doLogin = useSelector((state) => state.accountOption.login)
     const doRegister = useSelector((state) => state.accountOption.register)
+    const { username } = useSelector((state) => state.auth)
 
     const dispatch = useDispatch()
 
@@ -75,22 +77,38 @@ function Navbar() {
                         className="absolute cursor-pointer text-slate-700 ml-44 md:ml-60"
                     />
                 </form>
-                <div
-                    className="hidden lg:flex justify-center items-center md:gap-5 p-10"
-                >
-                    <button
-                        className=" shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-red-500 hover:text-white active:scale-50"
-                        onClick={() => dispatch(login())}
+                {username ?
+                    (<div
+                        className="hidden lg:flex justify-between items-center md:gap-5 p-10"
                     >
-                        Sign In
-                    </button>
-                    <button
-                        className="shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-green-500 hover:text-white active:scale-50"
-                        onClick={() => dispatch(register())}
+                        <button
+                            className=" shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-red-500 hover:text-white active:scale-50 transition-all"
+                            onClick={(e) => dispatch(reset())}
+                        >
+                            Sign Out
+                        </button>
+                        <button
+                            className={`p-2 grid items-center rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${dashboardSelected ? "bg-violet-500" : ""}`}
+                        >
+                            Dashboard
+                        </button>
+                    </div>) : (<div
+                        className="hidden lg:flex justify-center items-center md:gap-5 p-10"
                     >
-                        Sign Up
-                    </button>
-                </div>
+                        <button
+                            className=" shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-red-500 hover:text-white active:scale-50"
+                            onClick={() => dispatch(login())}
+                        >
+                            Sign In
+                        </button>
+                        <button
+                            className="shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-green-500 hover:text-white active:scale-50"
+                            onClick={() => dispatch(register())}
+                        >
+                            Sign Up
+                        </button>
+                    </div>)
+                }
                 <button
                     onClick={() => dispatch(toggleOpen())}
                 >

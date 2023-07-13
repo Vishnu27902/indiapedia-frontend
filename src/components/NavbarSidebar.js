@@ -11,6 +11,7 @@ function NavbarSidebar() {
     const homeSelected = useSelector((state) => state.optionSelected.home)
     const statesSelected = useSelector((state) => state.optionSelected.states)
     const citiesSelected = useSelector((state) => state.optionSelected.cities)
+    const { username } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
 
     return (
@@ -50,43 +51,60 @@ function NavbarSidebar() {
                     <hr
                         className=" border-gray-900"
                     />
-                    <Link>
-                        <button
-                            className="flex w-full"
-                        >
-                            <li
-                                className='hover:bg-gray-400 p-5 my-1 cursor-pointer  flex-grow text-left'
+                    {username ?
+                        (<>
+                            <Link>
+                                <button
+                                    className="flex w-full"
+                                >
+                                    <li
+                                        className='hover:bg-gray-400 p-5 my-1 cursor-pointer  flex-grow text-left'
+                                    >
+                                        Dashboard
+                                    </li>
+                                </button>
+                            </Link>
+                            <hr
+                                className=" border-gray-900"
+                            />
+                            <button
+                                className="flex"
+                                onClick={() => dispatch(register())}
                             >
-                                Dashboard
-                            </li>
-                        </button>
-                    </Link>
-                    <hr
-                        className=" border-gray-900"
-                    />
-                    <button
-                        className="flex"
-                        onClick={() => dispatch(login())}
-                    >
-                        <li
-                            className='hover:bg-gray-400 p-5 my-1 cursor-pointer text-left flex-grow'
-                        >
-                            Sign In
-                        </li>
-                    </button>
-                    <hr
-                        className=" border-gray-900"
-                    />
-                    <button
-                        className="flex"
-                        onClick={() => dispatch(register())}
-                    >
-                        <li
-                            className='hover:bg-gray-400 p-5 my-1 cursor-pointer text-left flex-grow'
-                        >
-                            Sign Up
-                        </li>
-                    </button>
+                                <li
+                                    className='hover:bg-gray-400 p-5 my-1 cursor-pointer text-left flex-grow'
+                                >
+                                    Sign Up
+                                </li>
+                            </button>
+                        </>)
+                        :
+                        (<>
+                            <button
+                                className="flex"
+                                onClick={() => dispatch(login())}
+                            >
+                                <li
+                                    className='hover:bg-gray-400 p-5 my-1 cursor-pointer text-left flex-grow'
+                                >
+                                    Sign In
+                                </li>
+                            </button>
+                            <hr
+                                className=" border-gray-900"
+                            />
+                            <button
+                                className="flex"
+                                onClick={() => dispatch(register())}
+                            >
+                                <li
+                                    className='hover:bg-gray-400 p-5 my-1 cursor-pointer text-left flex-grow'
+                                >
+                                    Sign Up
+                                </li>
+                            </button>
+                        </>)
+                    }
                     <hr
                         className=" border-gray-900"
                     />
@@ -118,8 +136,8 @@ function NavbarSidebar() {
                     <hr
                         className=" border-gray-900"
                     />
-                    <Link 
-                    to="/home/cities"
+                    <Link
+                        to="/home/cities"
                     >
                         <button
                             className="flex w-full"

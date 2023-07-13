@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     home: false,
     states: false,
-    cities: false
+    cities: false,
+    dashboard: false
 }
 
 const optionSelectedSlice = createSlice({
@@ -20,6 +21,9 @@ const optionSelectedSlice = createSlice({
                     break
                 case "cities":
                     state.cities = action.payload.active
+                    break
+                case "dashboard":
+                    state.dashboard = action.payload.active
                     break
                 default:
                     throw new Error("Invalid Action")

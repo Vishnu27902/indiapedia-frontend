@@ -2,6 +2,7 @@ import { Fade } from "react-awesome-reveal"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { toggle } from "../features/optionSelectedSlice"
+import { Link } from "react-router-dom"
 
 import India from "../images/India.webp"
 import Footer from "./Footer"
@@ -86,16 +87,24 @@ function Home() {
                                 <div
                                     className="flex gap-10"
                                 >
+                                    <Link
+                                        to="states"
+                                    >
                                     <button
                                         className=" bg-orange-600 hover:bg-orange-400 text-white transition-all px-4 py-2 rounded-lg active:scale-50 hover:shadow-md hover:shadow-black"
-                                    >
+                                        >
                                         States
                                     </button>
+                                    </Link>
+                                    <Link
+                                        to="cities"
+                                    >
                                     <button
                                         className=" bg-orange-600 hover:bg-orange-400 text-white transition-all px-4 py-2 rounded-lg active:scale-50 hover:shadow-md hover:shadow-black"
-                                    >
+                                        >
                                         Cities
                                     </button>
+                                            </Link>
                                 </div>
                             </div>
                             <div

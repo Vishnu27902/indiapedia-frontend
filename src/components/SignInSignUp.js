@@ -7,6 +7,7 @@ import { validateUsername, validateEmail, validatePhNumber, validatePassword, va
 import { validateSignIn, validateSignInUsername, validateSignInPassword } from "../features/SignInSlice"
 import { getAccessToken } from "../features/authSlice"
 import { registerUser } from "../features/signUpSlice"
+import { useEffect } from "react"
 
 function SignInSignUp() {
     const doLogin = useSelector((state) => state.accountOption.login)
@@ -16,8 +17,10 @@ function SignInSignUp() {
 
     const dispatch = useDispatch()
 
-    dispatch(validateSignUp())
-    dispatch(validateSignIn())
+    useEffect(() => {
+        dispatch(validateSignUp())
+        dispatch(validateSignIn())
+    }, [dispatch,signUpStates,signInStates])
 
     const handleSignIn = (e) => {
         e.preventDefault()
