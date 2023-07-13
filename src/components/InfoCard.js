@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,8 +11,10 @@ function InfoCard({ state }) {
             className="flex flex-col justify-end w-52 sm:w-64 h-1/2 md:h-2/3 rounded-2xl p-2 shrink-0 shadow-lg shadow-black hover:shadow-xl hover:shadow-black hover:border-orange-600 hover:border-2 active:scale-[0.9] cursor-pointer"
             onMouseOver={() => setIsHovered(true)}
             onMouseOut={() => setIsHovered(false)}
-            style={{ "backgroundImage": `url(data:${state.img.contentType};base64,${base64Converter(state.img.data.data)})`
-            , "backgroundRepeat": "no-repeat", "backgroundSize": "cover", "backgroundPosition": "center" }}
+            style={{
+                "backgroundImage": `url(data:${state.img.contentType};base64,${base64Converter(state.img.data.data)})`
+                , "backgroundRepeat": "no-repeat", "backgroundSize": "cover", "backgroundPosition": "center"
+            }}
         >
             <h1
                 className="text-center text-xl font-extrabold md:text-3xl  text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-white to-green-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]"

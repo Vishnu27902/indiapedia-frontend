@@ -1,7 +1,7 @@
-import Notification from "./Notification";
-
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import Notification from "./Notification";
 import AdminNavbar from "./AdminNavbar";
 
 function AdminLayout() {

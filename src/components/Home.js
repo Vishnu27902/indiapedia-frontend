@@ -1,9 +1,10 @@
-import India from "../images/India.webp"
 import { Fade } from "react-awesome-reveal"
-import Footer from "./Footer"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { toggle } from "../features/optionSelectedSlice"
+
+import India from "../images/India.webp"
+import Footer from "./Footer"
 
 function Home() {
 

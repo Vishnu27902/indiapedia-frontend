@@ -1,8 +1,10 @@
-import HomeBackground from "../images/HomeBackground.jpg"
-import Footer from "./Footer"
 import { useDispatch } from "react-redux"
 import { toggle } from "../features/adminNavOptionSlice"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
+
+import HomeBackground from "../images/HomeBackground.jpg"
+import Footer from "./Footer"
 
 function AdminHome() {
   const dispatch = useDispatch()
@@ -68,11 +70,15 @@ function AdminHome() {
                     Delete Existing State Data
                   </li>
                 </ul>
-                <button
-                  className="flex p-2 w-24 bg-orange-500 self-center rounded-lg text-white hover:bg-orange-400 transition-all hover:shadow-lg hover:shadow-black shadow-black shadow-md active:scale-50"
+                <Link
+                  to="states"
                 >
-                  Get Started
-                </button>
+                  <button
+                    className="flex p-2 w-24 bg-orange-500 self-center rounded-lg text-white hover:bg-orange-400 transition-all hover:shadow-lg hover:shadow-black shadow-black shadow-md active:scale-50"
+                  >
+                    Get Started
+                  </button>
+                </Link>
               </div>
               <div
                 className='flex flex-col w-5/6 lg:w-1/3 shrink-0 m-3 p-3 rounded-lg  shadow-lg shadow-black gap-3'
@@ -96,11 +102,15 @@ function AdminHome() {
                     Delete Existing City Data
                   </li>
                 </ul>
-                <button
-                  className="flex p-2 w-24 bg-orange-500 self-center rounded-lg text-white hover:bg-orange-400 transition-all hover:shadow-lg hover:shadow-black shadow-black shadow-md active:scale-50"
+                <Link
+                  to="cities"
                 >
-                  Get Started
-                </button>
+                  <button
+                    className="flex p-2 w-24 bg-orange-500 self-center rounded-lg text-white hover:bg-orange-400 transition-all hover:shadow-lg hover:shadow-black shadow-black shadow-md active:scale-50"
+                  >
+                    Get Started
+                  </button>
+                </Link>
               </div>
               <div
                 className='flex flex-col w-5/6 lg:w-1/3 shrink-0 m-3 p-3 rounded-lg  shadow-lg shadow-black gap-3'
@@ -124,11 +134,15 @@ function AdminHome() {
                     Delete Existing User Data
                   </li>
                 </ul>
-                <button
-                  className="flex p-2 w-24 bg-orange-500 self-center rounded-lg text-white hover:bg-orange-400 transition-all hover:shadow-lg hover:shadow-black shadow-black shadow-md active:scale-50"
+                <Link
+                  to="users"
                 >
-                  Get Started
-                </button>
+                  <button
+                    className="flex p-2 w-24 bg-orange-500 self-center rounded-lg text-white hover:bg-orange-400 transition-all hover:shadow-lg hover:shadow-black shadow-black shadow-md active:scale-50"
+                  >
+                    Get Started
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

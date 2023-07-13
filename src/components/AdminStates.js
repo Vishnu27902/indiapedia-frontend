@@ -1,11 +1,13 @@
-import axios from "axios"
 import { useEffect, useLayoutEffect } from "react"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { toggle } from "../features/adminNavOptionSlice"
+import { Link } from "react-router-dom"
+
+import axios from "axios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
-import { useDispatch } from "react-redux"
-import { toggle } from "../features/adminNavOptionSlice"
 
 function AdminStates() {
     const [dataCount, setDataCount] = useState(0)
@@ -79,15 +81,28 @@ function AdminStates() {
                         {
                             loading ? <Loading /> :
                                 states.map((state) => {
-                                    return <InfoCard key={state.key} state={state} />
+                                    return (
+                                        <Link
+                                            to={`${state.code}`}
+                                        >
+                                            <InfoCard
+                                                key={state.code}
+                                                state={state}
+                                            />
+                                        </Link>
+                                    )
                                 })
                         }
                     </div>
-                    <button
-                        className="p-2 bg-violet-600 text-white w-32 shadow-black shadow-md hover:shadow-lg hover:shadow-black hover:bg-violet-500 active:scale-50 self-center m-2 rounded-lg"
+                    <Link
+                        to="add"
                     >
-                        Add New State
-                    </button>
+                        <button
+                            className="p-2 bg-violet-600 text-white w-32 shadow-black shadow-md hover:shadow-lg hover:shadow-black hover:bg-violet-500 active:scale-50 self-center m-2 rounded-lg"
+                        >
+                            Add New State
+                        </button>
+                    </Link>
                 </div>
             </div >
         </>

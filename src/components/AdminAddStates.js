@@ -1,11 +1,10 @@
-import { useState, useReducer } from "react"
+import { useState, useReducer, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { postState, revokeStatus } from "../features/adminAddStateSlice"
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 import AdminContent from "./AdminContent"
 import AdminImage from "./AdminImage"
-
-import { postState, revokeStatus } from "../features/adminAddStateSlice"
-import { notify, revokeNotify } from "../features/notificationSlice"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -27,7 +26,14 @@ function reducer(state, action) {
 }
 
 function AdminAddStates() {
-  const [state, rootDispatch] = useReducer(reducer, { code: "", name: "", img: "", mainContent: [] })
+  const [state, rootDispatch] = useReducer(reducer,
+    {
+      code: "",
+      name: "",
+      img: "",
+      mainContent: []
+    }
+  )
   const [contentList, setContentList] = useState([])
   const [index, setIndex] = useState(0)
   const dispatch = useDispatch()
@@ -50,20 +56,28 @@ function AdminAddStates() {
     dispatch(postState(state))
   }
 
-  if (adminAddStateStates.success) {
-    dispatch(notify({ status: "success", message: adminAddStateStates.message }))
-    setTimeout(() => {
-      dispatch(revokeNotify())
-      dispatch(revokeStatus())
-    }, 3000)
-  }
-  if (adminAddStateStates.error) {
-    dispatch(notify({ status: "error", message: adminAddStateStates.message }))
-    setTimeout(() => {
-      dispatch(revokeNotify())
-      dispatch(revokeStatus())
-    }, 3000)
-  }
+  useEffect(() => {
+    if (adminAddStateStates.success) {
+      dispatch(notify({
+        status: "success",
+        message: adminAddStateStates.message
+      }))
+      setTimeout(() => {
+        dispatch(revokeNotify())
+        dispatch(revokeStatus())
+      }, 3000)
+    }
+    if (adminAddStateStates.error) {
+      dispatch(notify({
+        status: "error",
+        message: adminAddStateStates.message
+      }))
+      setTimeout(() => {
+        dispatch(revokeNotify())
+        dispatch(revokeStatus())
+      }, 3000)
+    }
+  }, [dispatch, adminAddStateStates])
 
   return (
     <div

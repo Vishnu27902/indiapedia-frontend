@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom"
+
 import Layout from "./components/Layout"
 import Home from "./components/Home"
 import InfoPage from "./components/InfoPage"
 import Dashboard from "./components/Dashboard"
 import AdminLayout from "./components/AdminLayout"
 import AdminHome from "./components/AdminHome"
-import AdminInfoPage from "./components/AdminInfoPage"
 import AdminEditState from "./components/AdminEditState"
 import AdminEditUser from "./components/AdminEditUser"
 import AdminEditCity from "./components/AdminEditCity"
@@ -14,6 +14,7 @@ import AdminAddStates from "./components/AdminAddStates"
 import AdminAddCities from "./components/AdminAddCities"
 import AdminCities from "./components/AdminCities"
 import AdminAddUsers from "./components/AdminAddUsers"
+import AdminUsers from "./components/AdminUsers"
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
                     <Route path=":id" element={<AdminEditCity />} />
                 </Route>
                 <Route path="users">
-                    <Route index element={<AdminInfoPage />} />
+                    <Route index element={<AdminUsers />} />
                     <Route path="add" element={<AdminAddUsers />} />
                     <Route path=":id" element={<AdminEditUser />} />
                 </Route>

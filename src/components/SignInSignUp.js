@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons"
 import { Zoom } from "react-awesome-reveal"
-
 import { useSelector, useDispatch } from "react-redux"
 import { login, register } from "../features/accountOptionSlice"
 import { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword, validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused } from "../features/signUpSlice"

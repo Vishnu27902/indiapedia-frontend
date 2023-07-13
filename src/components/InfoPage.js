@@ -1,12 +1,12 @@
-
-import axios from "axios"
 import { useEffect, useLayoutEffect } from "react"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { toggle } from "../features/optionSelectedSlice"
+
+import axios from "axios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
-import { useDispatch } from "react-redux"
-import { toggle } from "../features/optionSelectedSlice"
 
 function InfoPage({ type }) {
     const dispatch = useDispatch()

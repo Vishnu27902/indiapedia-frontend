@@ -1,7 +1,4 @@
-import React from 'react'
-
 function AdminTableRow({ index, setRow }) {
-
     return (
         <>
             <label

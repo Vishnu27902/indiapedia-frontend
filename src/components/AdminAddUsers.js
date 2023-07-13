@@ -1,9 +1,9 @@
-import AdminImage from "./AdminImage"
 import { useDispatch, useSelector } from "react-redux"
-import { revokeStatus } from "../features/adminAddUserSlice"
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { notify, revokeNotify } from "../features/notificationSlice"
-import { postUser } from "../features/adminAddUserSlice"
+import { postUser, revokeStatus } from "../features/adminAddUserSlice"
+
+import AdminImage from "./AdminImage"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -17,6 +17,8 @@ function reducer(state, action) {
       return { ...state, phNumber: action.payload }
     case "password":
       return { ...state, password: action.payload }
+    case "confirmPassword":
+      return { ...state, confirmPassword: action.payload }
     case "role":
       return { ...state, role: action.payload }
     default:
@@ -31,9 +33,10 @@ function AdminAddUsers() {
     email: "",
     phNumber: "",
     password: "",
+    confirmPassword: "",
     role: ""
   })
-  const { success, error, message } = useSelector(state => state.adminAddUsers)
+  const adminAddUserStates = useSelector((state) => state.adminAddUser)
   const dispatch = useDispatch()
 
   function addUser(e) {
@@ -41,27 +44,29 @@ function AdminAddUsers() {
     dispatch(postUser(state))
   }
 
-  if (success) {
-    dispatch(notify({
-      status: "success",
-      message
-    }))
-    setTimeout(() => {
-      dispatch(revokeNotify())
-      dispatch(revokeStatus())
-    }, 3000)
-  }
+  useEffect(() => {
+    if (adminAddUserStates.success) {
+      dispatch(notify({
+        status: "success",
+        message: adminAddUserStates.message
+      }))
+      setTimeout(() => {
+        dispatch(revokeNotify())
+        dispatch(revokeStatus())
+      }, 3000)
+    }
 
-  if (error) {
-    notify({
-      status: "error",
-      message
-    })
-    setTimeout(() => {
-      dispatch(revokeNotify())
-      dispatch(revokeStatus())
-    }, 3000)
-  }
+    if (adminAddUserStates.error) {
+      dispatch(notify({
+        status: "error",
+        message: adminAddUserStates.message
+      }))
+      setTimeout(() => {
+        dispatch(revokeNotify())
+        dispatch(revokeStatus())
+      }, 3000)
+    }
+  }, [dispatch, adminAddUserStates])
 
   return (
     <div
@@ -143,30 +148,44 @@ function AdminAddUsers() {
             onChange={(e) => rootDispatch({ type: "confirmPassword", payload: e.target.value })}
             required
           />
-          <label
-            className='text-md'
-            htmlFor="role"
+          <div
+            className="flex gap-3 items-center"
           >
-            Role :
-          </label>
-          <input
-            id="role"
-            name="role"
-            className='text-md border border-black outline-black rounded-md px-2 py-1'
-            type='radio'
-            value="admin"
-            onChange={(e) => rootDispatch({ type: "role", payload: e.target.value })}
-            required
-          />
-          <input
-            id="role"
-            name="role"
-            className='text-md border border-black outline-black rounded-md px-2 py-1'
-            type='radio'
-            value="user"
-            onChange={(e) => rootDispatch({ type: "role", payload: e.target.value })}
-            required
-          />
+            <label
+              className='text-md'
+              htmlFor="role"
+            >
+              Role :
+            </label>
+            <input
+              id="admin"
+              name="role"
+              className='text-md border border-black outline-black rounded-md px-2 py-1'
+              type='radio'
+              value="admin"
+              onChange={(e) => rootDispatch({ type: "role", payload: e.target.value })}
+              required
+            />
+            <label
+              htmlFor="admin"
+            >
+              Admin
+            </label>
+            <input
+              id="user"
+              name="role"
+              className='text-md border border-black outline-black rounded-md px-2 py-1'
+              type='radio'
+              value="user"
+              onChange={(e) => rootDispatch({ type: "role", payload: e.target.value })}
+              required
+            />
+            <label
+              htmlFor="user"
+            >
+              User
+            </label>
+          </div>
           <AdminImage
             rootDispatch={rootDispatch}
           />

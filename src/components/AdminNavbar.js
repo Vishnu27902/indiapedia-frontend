@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons"
-import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
-import AdminNavbarSidebar from "./AdminNavbarSidebar"
 import { toggleIsOpen } from "../features/adminNavbarSidebarSlice"
 import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+
+import AdminNavbarSidebar from "./AdminNavbarSidebar"
+import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
 
 function AdminNavbar() {
     const isSidebarOpen = useSelector((state) => state.adminNavbarSidebar.isOpen)
@@ -26,26 +28,42 @@ function AdminNavbar() {
                 <div
                     className="hidden justify-between md:gap-20 lg:flex"
                 >
-                    <button
-                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.home ? "bg-violet-500" : ""}`}
+                    <Link
+                        to=""
                     >
-                        Home
-                    </button>
-                    <button
-                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.states ? "bg-violet-500" : ""}`}
+                        <button
+                            className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.home ? "bg-violet-500" : ""}`}
+                        >
+                            Home
+                        </button>
+                    </Link>
+                    <Link
+                        to="states"
                     >
-                        States
-                    </button>
-                    <button
-                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.cities ? "bg-violet-500" : ""}`}
+                        <button
+                            className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.states ? "bg-violet-500" : ""}`}
+                        >
+                            States
+                        </button>
+                    </Link>
+                    <Link
+                        to="cities"
                     >
-                        Cities
-                    </button>
-                    <button
-                        className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.users ? "bg-violet-500" : ""}`}
+                        <button
+                            className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.cities ? "bg-violet-500" : ""}`}
+                        >
+                            Cities
+                        </button>
+                    </Link>
+                    <Link
+                        to="users"
                     >
-                        Users
-                    </button>
+                        <button
+                            className={`grid items-center w-20 rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${optionStates.users ? "bg-violet-500" : ""}`}
+                        >
+                            Users
+                        </button>
+                    </Link>
                 </div>
                 <form
                     className="flex justify-center items-center shrink-0"

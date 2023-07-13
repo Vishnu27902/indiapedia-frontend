@@ -9,11 +9,11 @@ import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
 
-function AdminCities() {
+function AdminUsers() {
     const [dataCount, setDataCount] = useState(0)
     const [pageCount, setPageCount] = useState(1)
     const [pageSelected, setPageSelected] = useState(0)
-    const [cities, setStates] = useState([])
+    const [users, setStates] = useState([])
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
@@ -22,9 +22,9 @@ function AdminCities() {
     }
 
     useEffect(() => {
-        dispatch(toggle({ type: "cities", active: true }))
+        dispatch(toggle({ type: "states", active: true }))
         return (() => {
-            dispatch(toggle({ type: "cities", action: false }))
+            dispatch(toggle({ type: "states", action: false }))
         })
     })
 
@@ -56,7 +56,7 @@ function AdminCities() {
                     <h1
                         className=" text-5xl text-violet-300  text-center"
                     >
-                        Cities
+                        States
                     </h1>
                     <hr
                         className=" my-5 border-violet-950"
@@ -80,14 +80,14 @@ function AdminCities() {
                     >
                         {
                             loading ? <Loading /> :
-                                cities.map((city) => {
+                                users.map((user) => {
                                     return (
                                         <Link
-                                            to={`${city.code}`}
+                                            to={`${user._id}`}
                                         >
                                             <InfoCard
-                                                key={city.code}
-                                                state={city}
+                                                key={user._id}
+                                                state={user}
                                             />
                                         </Link>
                                     )
@@ -96,11 +96,12 @@ function AdminCities() {
                     </div>
                     <Link
                         to="add"
+                        className="items-center"
                     >
                         <button
                             className="p-2 bg-violet-600 text-white w-32 shadow-black shadow-md hover:shadow-lg hover:shadow-black hover:bg-violet-500 active:scale-50 self-center m-2 rounded-lg"
                         >
-                            Add New City
+                            Add New User
                         </button>
                     </Link>
                 </div>
@@ -109,4 +110,4 @@ function AdminCities() {
     )
 }
 
-export default AdminCities
+export default AdminUsers

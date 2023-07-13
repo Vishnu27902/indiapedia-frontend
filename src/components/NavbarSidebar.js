@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
-
 import { login, register } from "../features/accountOptionSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleClose } from "../features/navSidebarSlice"
-
 import { Link } from "react-router-dom"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"

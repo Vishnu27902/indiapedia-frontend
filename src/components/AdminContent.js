@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
+
 import AdminInputContent from './AdminInputContent'
 import AdminImage from './AdminImage'
 import AdminTable from './AdminTable'

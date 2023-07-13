@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react"
+import { useState, useReducer, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import AdminContent from "./AdminContent"
@@ -29,11 +29,19 @@ function reducer(state, action) {
 }
 
 function AdminAddCities() {
-  const [state, rootDispatch] = useReducer(reducer, { code: "", name: "", img: "", state: "", mainContent: [] })
+  const [state, rootDispatch] = useReducer(reducer,
+    {
+      code: "",
+      name: "",
+      img: "",
+      state: "",
+      mainContent: []
+    }
+  )
   const [contentList, setContentList] = useState([])
   const [index, setIndex] = useState(0)
   const dispatch = useDispatch()
-  const adminAddStateStates = useSelector((state) => state.adminAddState)
+  const adminAddCityStates = useSelector((state) => state.adminAddCity)
 
   function addMoreContent() {
     setContentList((prev) => [...prev,
@@ -52,20 +60,28 @@ function AdminAddCities() {
     dispatch(postCity(state))
   }
 
-  if (adminAddStateStates.success) {
-    dispatch(notify({ status: "success", message: adminAddStateStates.message }))
-    setTimeout(() => {
-      dispatch(revokeNotify())
-      dispatch(revokeStatus())
-    }, 3000)
-  }
-  if (adminAddStateStates.error) {
-    dispatch(notify({ status: "error", message: adminAddStateStates.message }))
-    setTimeout(() => {
-      dispatch(revokeNotify())
-      dispatch(revokeStatus())
-    }, 3000)
-  }
+  useEffect(() => {
+    if (adminAddCityStates.success) {
+      dispatch(notify({
+        status: "success",
+        message: adminAddCityStates.message
+      }))
+      setTimeout(() => {
+        dispatch(revokeNotify())
+        dispatch(revokeStatus())
+      }, 3000)
+    }
+    if (adminAddCityStates.error) {
+      dispatch(notify({
+        status: "error",
+        message: adminAddCityStates.message
+      }))
+      setTimeout(() => {
+        dispatch(revokeNotify())
+        dispatch(revokeStatus())
+      }, 3000)
+    }
+  }, [dispatch, adminAddCityStates])
 
   return (
     <div

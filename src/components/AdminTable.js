@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
+
 import AdminTableRow from './AdminTableRow'
 
 function AdminTable({ dispatch }) {
     const [rowComponent, setRowComponent] = useState([])
     const [row, setRow] = useState([])
     const [index, setIndex] = useState(0)
-    console.log(row)
 
     function handleOnClick(e) {
         e.preventDefault()
@@ -17,7 +17,6 @@ function AdminTable({ dispatch }) {
         dispatch({ type: "table", payload: row })
     }, [dispatch, row])
 
-    
     return (
         <>
             {
