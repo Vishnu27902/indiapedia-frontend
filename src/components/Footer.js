@@ -31,7 +31,7 @@ function Footer() {
                     Developed and managed by<br /> Vishnuvaradhan D<br />
                     <a
                         target="_blank"
-                        href="https://www.github.com/vishnu27902"
+                        href="https://www.github.com/vishnu27902" rel="noreferrer"
                     >
                         https://www.github.com/vishnu27902
                     </a>

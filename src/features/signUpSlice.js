@@ -1,5 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "../api/axios";
 
+const MESSAGE = {
+    success: "User Registration Successful",
+    error: "Something went wrong... Please Try Again"
+}
 const initialState = {
     username: "",
     email: "",
@@ -17,7 +22,11 @@ const initialState = {
     phNumberFocus: false,
     passwordFocus: false,
     confirmPasswordFocus: false,
-    validSignUp: false
+    validSignUp: false,
+    loading: false,
+    error: false,
+    success: false,
+    message: ""
 }
 
 const REGEX = {
@@ -26,6 +35,15 @@ const REGEX = {
     PH_NO: /^[0-9]{10}$/,
     PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/
 }
+
+export const registerUser = createAsyncThunk("auth/signUp", async ({ name, email, phNumber, password }) => {
+    await axios.post("/auth/signUp", {
+        name,
+        email,
+        phNumber,
+        password
+    })
+})
 
 const signUp = createSlice({
     name: "signUp",
@@ -69,16 +87,52 @@ const signUp = createSlice({
         validateSignUp: (state) => {
             state.validSignUp = state.validConfirmPassword && state.validEmail && validatePassword && validatePhNumber && validateUsername
         },
-        resetSignUp:(state)=>{
-            state.username=""
-            state.password=""
-            state.confirmPassword=""
-            state.email=""
-            state.phNumber=""
+        resetSignUp: (state) => {
+            state.username = ""
+            state.email = ""
+            state.phNumber = ""
+            state.password = ""
+            state.confirmPassword = ""
+            state.validUsername = false
+            state.validEmail = false
+            state.validPhNumber = false
+            state.validPassword = false
+            state.validConfirmPassword = false
+            state.status = false
+            state.usernameFocus = false
+            state.emailFocus = false
+            state.phNumberFocus = false
+            state.passwordFocus = false
+            state.confirmPasswordFocus = false
+            state.validSignUp = false
+            state.loading = false
+            state.error = false
+            state.success = false
+            state.message = ""
         }
+    },
+    extraReducers(builders) {
+        builders
+            .addCase(registerUser.pending, (state, action) => {
+                state.loading = true
+                state.error = false
+                state.success = false
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.loading = false
+                state.success = false
+                state.error = true
+                state.message = MESSAGE.error
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.loading = false
+                state.error = false
+                state.success = true
+                state.message = MESSAGE.success
+            })
     }
 })
 
-export const { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword,validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused, resetSignUp } = signUp.actions
+export const { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword, validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused, resetSignUp } = signUp.actions
 
 export default signUp.reducer

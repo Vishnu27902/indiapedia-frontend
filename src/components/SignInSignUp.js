@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { login, register } from "../features/accountOptionSlice"
 import { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword, validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused } from "../features/signUpSlice"
 import { validateSignIn, validateSignInUsername, validateSignInPassword } from "../features/SignInSlice"
+import { getAccessToken } from "../features/authSlice"
+import { registerUser } from "../features/signUpSlice"
 
 function SignInSignUp() {
     const doLogin = useSelector((state) => state.accountOption.login)
@@ -16,7 +18,25 @@ function SignInSignUp() {
 
     dispatch(validateSignUp())
     dispatch(validateSignIn())
-    
+
+    const handleSignIn = (e) => {
+        e.preventDefault()
+        dispatch(getAccessToken({
+            username: signInStates.username,
+            password: signInStates.password
+        }))
+    }
+
+    const handleSignUp = (e) => {
+        e.preventDefault()
+        dispatch(registerUser({
+            name: signUpStates.name,
+            email: signUpStates.email,
+            phNumber: signUpStates.phNumber,
+            password: signUpStates.password
+        }))
+    }
+
     return (
         <div
             className='absolute w-full h-full z-20 flex items-center justify-center scroll-hide overflow-y-auto'
@@ -62,6 +82,7 @@ function SignInSignUp() {
                             <button
                                 disabled={!(signInStates.validSignIn)}
                                 className='cursor-pointer bg-indigo-600 w-28 self-center h-10 rounded-full shadow-sm shadow-black hover:shadow-md hover:shadow-black hover:bg-indigo-400 transition-all active:scale-50'
+                                onClick={(e) => handleSignIn(e)}
                             >
                                 Sign In
                             </button>
@@ -240,6 +261,7 @@ function SignInSignUp() {
                             <button
                                 disabled={!(signUpStates.validSignUp)}
                                 className='cursor-pointer bg-indigo-600 w-28 self-center h-10 rounded-full hover:bg-indigo-400 shadow-sm shadow-black hover:shadow-md hover:shadow-black transition-all active:scale-50'
+                                onClick={(e) => handleSignUp(e)}
                             >
                                 Sign Up
                             </button>
