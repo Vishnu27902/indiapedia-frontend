@@ -10,6 +10,9 @@ import adminNavbarSidebarReducer from "../features/adminNavbarSidebarSlice";
 import adminAddStateReducer from "../features/adminAddStateSlice";
 import adminAddCityReducer from "../features/adminAddCitySlice";
 import adminAddUserReducer from "../features/adminAddUserSlice";
+import adminStatesReducer from "../features/adminStatesSlice";
+import adminCitiesReducer from "../features/adminCitiesSlice";
+import adminUsersReducer from "../features/adminUsersSlice";
 
 export const store = configureStore({
     reducer: {
@@ -23,6 +26,9 @@ export const store = configureStore({
         adminNavbarSidebar: adminNavbarSidebarReducer,
         adminAddState: adminAddStateReducer,
         adminAddCity: adminAddCityReducer,
-        adminAddUser: adminAddUserReducer
+        adminAddUser: adminAddUserReducer,
+        adminStates: adminStatesReducer,
+        adminCities: adminCitiesReducer,
+        adminUsers: adminUsersReducer
     }
 })

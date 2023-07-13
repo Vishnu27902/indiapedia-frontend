@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useReducer } from "react"
 import { notify, revokeNotify } from "../features/notificationSlice"
 import { postUser, revokeStatus } from "../features/adminAddUserSlice"
+import { toggle } from "../features/adminNavOptionSlice"
 
 import AdminImage from "./AdminImage"
 
@@ -43,6 +44,14 @@ function AdminAddUsers() {
     e.preventDefault()
     dispatch(postUser(state))
   }
+
+  useEffect(() => {
+    document.title = "IndiaPedia - Add User"
+    dispatch(toggle({ type: "users", active: true }))
+    return (() => {
+      dispatch(toggle({ type: "users", action: false }))
+    })
+  }, [dispatch])
 
   useEffect(() => {
     if (adminAddUserStates.success) {

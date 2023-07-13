@@ -6,6 +6,7 @@ import AdminImage from "./AdminImage"
 
 import { postCity, revokeStatus } from "../features/adminAddCitySlice"
 import { notify, revokeNotify } from "../features/notificationSlice"
+import { toggle } from "../features/adminNavOptionSlice"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -59,6 +60,14 @@ function AdminAddCities() {
     e.preventDefault()
     dispatch(postCity(state))
   }
+
+  useEffect(() => {
+    document.title = "IndiaPedia - Add City"
+    dispatch(toggle({ type: "cities", active: true }))
+    return (() => {
+      dispatch(toggle({ type: "cities", action: false }))
+    })
+  }, [dispatch])
 
   useEffect(() => {
     if (adminAddCityStates.success) {

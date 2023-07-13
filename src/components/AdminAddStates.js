@@ -2,6 +2,7 @@ import { useState, useReducer, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { postState, revokeStatus } from "../features/adminAddStateSlice"
 import { notify, revokeNotify } from "../features/notificationSlice"
+import { toggle } from "../features/adminNavOptionSlice"
 
 import AdminContent from "./AdminContent"
 import AdminImage from "./AdminImage"
@@ -55,6 +56,14 @@ function AdminAddStates() {
     e.preventDefault()
     dispatch(postState(state))
   }
+
+  useEffect(() => {
+    document.title = "IndiaPedia - Add State"
+    dispatch(toggle({ type: "states", active: true }))
+    return (() => {
+      dispatch(toggle({ type: "states", action: false }))
+    })
+  }, [dispatch])
 
   useEffect(() => {
     if (adminAddStateStates.success) {

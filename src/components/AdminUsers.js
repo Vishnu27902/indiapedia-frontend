@@ -1,49 +1,44 @@
 import { useEffect, useLayoutEffect } from "react"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { getAllUsers, getUsers, setPageSelected } from "../features/adminUsersSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { notify, revokeNotify } from "../features/notificationSlice"
 import { toggle } from "../features/adminNavOptionSlice"
 import { Link } from "react-router-dom"
 
-import axios from "axios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
 
-function AdminUsers() {
-    const [dataCount, setDataCount] = useState(0)
-    const [pageCount, setPageCount] = useState(1)
-    const [pageSelected, setPageSelected] = useState(0)
-    const [users, setStates] = useState([])
-    const [loading, setLoading] = useState(false)
+function AdminStates() {
+    const { pageCount, limit, pageSelected, users, loading, error, message } = useSelector((state) => state.adminUsers)
     const dispatch = useDispatch()
 
     const handlePageChange = (data) => {
-        setPageSelected(data.selected)
+        dispatch(setPageSelected(data.selected))
     }
 
-    useEffect(() => {
-        dispatch(toggle({ type: "states", active: true }))
-        return (() => {
-            dispatch(toggle({ type: "states", action: false }))
-        })
-    })
-
     useLayoutEffect(() => {
-        axios.get("http://localhost:5000/statesCount").then((data) => {
-            setDataCount(data.data.count)
-            setPageCount(Math.ceil(dataCount / 8))
-        })
-    }, [dataCount])
+        dispatch(getAllUsers())
+    }, [dispatch])
 
     useEffect(() => {
-        setLoading(true)
-        axios.get(`http://localhost:5000/states?page=${pageSelected + 1}&limit=8`).then((data) => {
-            setStates(data.data.states)
-            setLoading(false)
-        }).catch((err) => {
-            console.log(err)
+        dispatch(getUsers({ pageSelected, limit }))
+    }, [dispatch, pageSelected, limit])
+
+    useEffect(() => {
+        document.title="IndiaPedia - Users"
+        dispatch(toggle({ type: "users", active: true }))
+        return (() => {
+            dispatch(toggle({ type: "users", action: false }))
         })
-    }, [pageSelected])
+    }, [dispatch])
+
+    if (error) {
+        dispatch(notify({ status: "error", message }))
+        setTimeout(() => {
+            dispatch(revokeNotify())
+        }, 3000)
+    }
 
     return (
         <>
@@ -56,7 +51,7 @@ function AdminUsers() {
                     <h1
                         className=" text-5xl text-violet-300  text-center"
                     >
-                        States
+                        Users
                     </h1>
                     <hr
                         className=" my-5 border-violet-950"
@@ -82,26 +77,23 @@ function AdminUsers() {
                             loading ? <Loading /> :
                                 users.map((user) => {
                                     return (
-                                        <Link
-                                            to={`${user._id}`}
-                                        >
-                                            <InfoCard
-                                                key={user._id}
-                                                state={user}
-                                            />
-                                        </Link>
+                                        <InfoCard
+                                            key={user._id}
+                                            state={user}
+                                            type="user"
+                                        />
                                     )
                                 })
                         }
                     </div>
                     <Link
                         to="add"
-                        className="items-center"
+                        className="flex justify-center self-center"
                     >
                         <button
                             className="p-2 bg-violet-600 text-white w-32 shadow-black shadow-md hover:shadow-lg hover:shadow-black hover:bg-violet-500 active:scale-50 self-center m-2 rounded-lg"
                         >
-                            Add New User
+                            Add User
                         </button>
                     </Link>
                 </div>
@@ -110,4 +102,4 @@ function AdminUsers() {
     )
 }
 
-export default AdminUsers
+export default AdminStates

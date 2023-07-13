@@ -10,6 +10,7 @@ function AdminHome() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    document.title = "IndiaPedia"
     dispatch(toggle({ type: "home", active: true }))
     return (() => {
       dispatch(toggle({ type: "home", action: false }))
@@ -71,6 +72,7 @@ function AdminHome() {
                   </li>
                 </ul>
                 <Link
+                  className="flex justify-center"
                   to="states"
                 >
                   <button
@@ -103,6 +105,7 @@ function AdminHome() {
                   </li>
                 </ul>
                 <Link
+                  className="flex justify-center"
                   to="cities"
                 >
                   <button
@@ -135,6 +138,7 @@ function AdminHome() {
                   </li>
                 </ul>
                 <Link
+                  className="flex justify-center"
                   to="users"
                 >
                   <button
