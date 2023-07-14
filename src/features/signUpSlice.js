@@ -133,6 +133,18 @@ const signUp = createSlice({
     }
 })
 
-export const { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword, validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused, resetSignUp } = signUp.actions
+export const { 
+    validateUsername, 
+    validateEmail, 
+    validatePhNumber, 
+    validatePassword, 
+    validateConfirmPassword, 
+    validateSignUp, 
+    usernameFocused, 
+    emailFocused, 
+    phNumberFocused, 
+    passwordFocused, 
+    confirmPasswordFocused, 
+    resetSignUp } = signUp.actions
 
 export default signUp.reducer

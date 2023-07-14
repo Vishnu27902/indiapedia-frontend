@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleOpen } from "../features/navSidebarSlice"
 import { login, register } from "../features/accountOptionSlice"
-import { reset } from "../features/authSlice"
+import { reset, signOut } from "../features/authSlice"
 
 import NavbarSidebar from "./NavbarSidebar"
 import SignInSignUp from "./SignInSignUp"
@@ -83,7 +83,10 @@ function Navbar() {
                     >
                         <button
                             className=" shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-red-500 hover:text-white active:scale-50 transition-all"
-                            onClick={(e) => dispatch(reset())}
+                            onClick={(e) => {
+                                dispatch(signOut())
+                                dispatch(reset())
+                            }}
                         >
                             Sign Out
                         </button>

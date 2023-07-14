@@ -35,6 +35,7 @@ const adminStatesSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getAllStates.pending, (state, action) => {
+                state.error = false
                 state.loading = true
             })
             .addCase(getAllStates.rejected, (state, action) => {
@@ -49,6 +50,7 @@ const adminStatesSlice = createSlice({
                 state.pageCount = Math.ceil(action.payload.length / state.limit)
             })
             .addCase(getStates.pending, (state, action) => {
+                state.error = false
                 state.loading = true
             })
             .addCase(getStates.rejected, (state, action) => {

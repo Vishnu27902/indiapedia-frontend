@@ -2,9 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons"
 import { Zoom } from "react-awesome-reveal"
 import { useSelector, useDispatch } from "react-redux"
+import { useNavigate, useLocation } from "react-router-dom"
 import { login, register } from "../features/accountOptionSlice"
-import { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword, validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused } from "../features/signUpSlice"
-import { validateSignIn, validateSignInUsername, validateSignInPassword } from "../features/SignInSlice"
+import { validateUsername, validateEmail, validatePhNumber, validatePassword, validateConfirmPassword, validateSignUp, usernameFocused, emailFocused, phNumberFocused, passwordFocused, confirmPasswordFocused, resetSignUp } from "../features/signUpSlice"
+import { validateSignIn, validateSignInUsername, validateSignInPassword, resetSignIn } from "../features/SignInSlice"
 import { getAccessToken } from "../features/authSlice"
 import { registerUser } from "../features/signUpSlice"
 import { useEffect } from "react"
@@ -14,13 +15,34 @@ function SignInSignUp() {
     const doRegister = useSelector((state) => state.accountOption.register)
     const signUpStates = useSelector((state) => state.signUp)
     const signInStates = useSelector((state) => state.signIn)
+    const authStates = useSelector((state) => state.auth)
+    const location = useLocation()
+    const from = location?.state?.from || "/"
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(validateSignUp())
         dispatch(validateSignIn())
-    }, [dispatch,signUpStates,signInStates])
+    }, [dispatch, signUpStates, signInStates])
+
+    useEffect(() => {
+        if (authStates.success) {
+            dispatch(login())
+            dispatch(resetSignIn())
+        }
+        if (signUpStates.success) {
+            dispatch(register())
+            dispatch(resetSignUp())
+        }
+    }, [dispatch, authStates, signUpStates])
+
+    useEffect(() => {
+        if (authStates.role === "admin") {
+            navigate("admin", from, { replace: true })
+        }
+    }, [authStates, navigate, from])
 
     const handleSignIn = (e) => {
         e.preventDefault()

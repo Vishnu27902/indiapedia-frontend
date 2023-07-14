@@ -49,6 +49,7 @@ const adminUsersSlice = createSlice({
                 state.pageCount = Math.ceil(action.payload.length / state.limit)
             })
             .addCase(getUsers.pending, (state, action) => {
+                state.error = false
                 state.loading = true
             })
             .addCase(getUsers.rejected, (state, action) => {

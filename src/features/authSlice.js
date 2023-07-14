@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../api/axios"
+import axios from "../api/axios";
 
 const MESSAGE = {
     success: "Logged in Successfully",
@@ -20,29 +20,37 @@ export const getAccessToken = createAsyncThunk("auth/signIn", async ({ username,
     return authData.data
 })
 
+export const signOut = createAsyncThunk("auth/signOut", async () => {
+    console.log("hello")
+    await axios.get("/auth/logout")
+})
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         reset: (state, action) => {
-            const stateReset = {
-                loading: false,
-                error: false,
-                success: false,
-                message: "",
-                username: "",
-                accessToken: "",
-                role: ""
-            }
-            state = stateReset
+            state.loading = false
+            state.error = false
+            state.success = false
+            state.message = ""
+            state.username = ""
+            state.accessToken = ""
+            state.role = ""
+        },
+        setAccessToken: (state, action) => {
+            state.accessToken = action.payload
         }
     },
     extraReducers(builder) {
         builder
             .addCase(getAccessToken.pending, (state, action) => {
+                state.error = false
+                state.success = false
                 state.loading = true
             })
             .addCase(getAccessToken.rejected, (state, action) => {
+                state.success = false
                 state.loading = false
                 state.error = true
                 state.message = MESSAGE.error
@@ -56,9 +64,19 @@ const authSlice = createSlice({
                 state.accessToken = action.payload.accessToken
                 state.role = action.payload.role
             })
+            .addCase(signOut.rejected, (state, action) => {
+                state.success = false
+                state.error = true
+                state.message = MESSAGE.error
+            })
+            .addCase(signOut.fulfilled, (state, action) => {
+                state.success = true
+                state.error = false
+                state.message = MESSAGE.success
+            })
     }
 })
 
-export const { reset } = authSlice.actions
+export const { reset, setAccessToken } = authSlice.actions
 
 export default authSlice.reducer

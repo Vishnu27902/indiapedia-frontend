@@ -3,6 +3,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { login, register } from "../features/accountOptionSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleClose } from "../features/navSidebarSlice"
+import { signOut, reset } from "../features/authSlice"
 import { Link } from "react-router-dom"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
@@ -69,12 +70,15 @@ function NavbarSidebar() {
                             />
                             <button
                                 className="flex"
-                                onClick={() => dispatch(register())}
+                                onClick={() => {
+                                    dispatch(reset())
+                                    dispatch(signOut())
+                                }}
                             >
                                 <li
                                     className='hover:bg-gray-400 p-5 my-1 cursor-pointer text-left flex-grow'
                                 >
-                                    Sign Up
+                                    Sign Out
                                 </li>
                             </button>
                         </>)
