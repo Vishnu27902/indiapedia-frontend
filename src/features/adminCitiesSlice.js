@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../api/axios"
 
 const ERROR_MSG = "Error Occurred.. Try Again Later"
 const initialState = {
@@ -14,13 +13,13 @@ const initialState = {
     limit: 8
 }
 
-export const getAllCities = createAsyncThunk("admin/getAllCities", async () => {
-    const cities = await axios.get("/app/cities")
+export const getAllCities = createAsyncThunk("admin/getAllCities", async (data) => {
+    const cities = await data.axios.get("/admin/cities")
     return cities.data.citiesData
 })
 
 export const getCities = createAsyncThunk("admin/getCities", async (data) => {
-    const cities = await axios.get(`/app/cities?page=${data.pageSelected + 1}&limit=${data.limit}`)
+    const cities = await data.axios.get(`/admin/cities?page=${data.pageSelected + 1}&limit=${data.limit}`)
     return cities.data.citiesData
 })
 
@@ -35,6 +34,7 @@ const adminCitiesSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getAllCities.pending, (state, action) => {
+                state.error = false
                 state.loading = true
             })
             .addCase(getAllCities.rejected, (state, action) => {
@@ -49,6 +49,7 @@ const adminCitiesSlice = createSlice({
                 state.pageCount = Math.ceil(action.payload.length / state.limit)
             })
             .addCase(getCities.pending, (state, action) => {
+                state.error = false
                 state.loading = true
             })
             .addCase(getCities.rejected, (state, action) => {

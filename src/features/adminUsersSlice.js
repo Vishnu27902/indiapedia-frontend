@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../api/axios"
 
 const ERROR_MSG = "Error Occurred.. Try Again Later"
 const initialState = {
@@ -14,13 +13,13 @@ const initialState = {
     limit: 8
 }
 
-export const getAllUsers = createAsyncThunk("admin/getAllUsers", async () => {
-    const users = await axios.get("/admin/users")
+export const getAllUsers = createAsyncThunk("admin/getAllUsers", async (data) => {
+    const users = await data.axios.get("/admin/users")
     return users.data.usersData
 })
 
 export const getUsers = createAsyncThunk("admin/getUsers", async (data) => {
-    const user = await axios.get(`/admin/users?page=${data.pageSelected + 1}&limit=${data.limit}`)
+    const user = await data.axios.get(`/admin/users?page=${data.pageSelected + 1}&limit=${data.limit}`)
     return user.data.usersData
 })
 
@@ -35,6 +34,7 @@ const adminUsersSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getAllUsers.pending, (state, action) => {
+                state.error = false
                 state.loading = true
             })
             .addCase(getAllUsers.rejected, (state, action) => {

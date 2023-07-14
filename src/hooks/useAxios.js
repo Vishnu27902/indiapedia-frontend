@@ -16,21 +16,21 @@ function useAxios() {
                 }
                 return config
             }, (error) => {
-                return Promise.reject()
+                return Promise.reject(error)
             }
         )
         const responseInterceptor = axios.interceptors.response.use(
             response => response,
             async (error) => {
+                console.log(error)
                 const prevRequest = error?.config
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
                     prevRequest.sent = true
                     const newAccessToken = await refresh()
                     prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`
                     return axios(prevRequest)
-                } else {
-                    return Promise.reject()
                 }
+                return Promise.reject()
             }
         )
 

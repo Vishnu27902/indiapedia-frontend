@@ -5,6 +5,7 @@ import { notify, revokeNotify } from "../features/notificationSlice"
 import { toggle } from "../features/adminNavOptionSlice"
 import { Link } from "react-router-dom"
 
+import useAxios from "../hooks/useAxios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
@@ -12,33 +13,36 @@ import Loading from "./Loading"
 function AdminCities() {
     const { pageCount, limit, pageSelected, cities, loading, error, message } = useSelector((state) => state.adminCities)
     const dispatch = useDispatch()
+    const axios = useAxios()
 
     const handlePageChange = (data) => {
         dispatch(setPageSelected(data.selected))
     }
 
     useLayoutEffect(() => {
-        dispatch(getAllCities())
-    }, [dispatch])
+        dispatch(getAllCities({ axios }))
+    }, [dispatch, axios])
 
     useEffect(() => {
-        dispatch(getCities({ pageSelected, limit }))
-    }, [dispatch, pageSelected, limit])
+        dispatch(getCities({ pageSelected, limit, axios: axios }))
+    }, [dispatch, pageSelected, limit, axios])
 
     useEffect(() => {
-        document.title="IndiaPedia - Cities"
+        document.title = "IndiaPedia - Cities"
         dispatch(toggle({ type: "cities", active: true }))
         return (() => {
             dispatch(toggle({ type: "cities", action: false }))
         })
     }, [dispatch])
 
-    if (error) {
-        dispatch(notify({ status: "error", message }))
-        setTimeout(() => {
-            dispatch(revokeNotify())
-        }, 3000)
-    }
+    useEffect(() => {
+        if (error) {
+            dispatch(notify({ status: "error", message }))
+            setTimeout(() => {
+                dispatch(revokeNotify())
+            }, 3000)
+        }
+    }, [dispatch, error, message])
 
     return (
         <>

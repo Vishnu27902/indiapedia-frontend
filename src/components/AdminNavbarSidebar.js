@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleIsOpen } from "../features/adminNavbarSidebarSlice"
+import { signOut, reset } from "../features/authSlice"
 import { Link } from "react-router-dom"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
@@ -115,11 +116,17 @@ function AdminNavbarSidebar() {
           <hr
             className=" border-gray-900"
           />
-          <button>
+          <button
+            onClick={(e) => {
+              dispatch(signOut())
+              dispatch(reset())
+              window.location.href = "/home"
+            }}
+          >
             <li
               className='hover:bg-red-500 p-5 cursor-pointer my-1 '
             >
-              Logout
+              Sign Out
             </li>
           </button>
           <hr

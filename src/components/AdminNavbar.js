@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons"
 import { toggleIsOpen } from "../features/adminNavbarSidebarSlice"
 import { useSelector, useDispatch } from "react-redux"
+import { reset, signOut } from "../features/authSlice"
 import { Link } from "react-router-dom"
 
 import AdminNavbarSidebar from "./AdminNavbarSidebar"
@@ -83,6 +84,11 @@ function AdminNavbar() {
                 >
                     <button
                         className=" shadow-md shadow-black grid content-center bg-white text-black p-2 rounded-xl w-20 hover:bg-red-500 hover:text-white active:scale-50 transition-all"
+                        onClick={(e) => {
+                            dispatch(signOut())
+                            dispatch(reset())
+                            window.location.href = "/home"
+                        }}
                     >
                         Sign Out
                     </button>

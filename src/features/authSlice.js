@@ -61,7 +61,7 @@ const authSlice = createSlice({
                 state.success = true
                 state.message = MESSAGE.success
                 state.username = action.payload.username
-                state.accessToken = action.payload.accessToken
+                state.accessToken = action.payload.ACCESS_TOKEN
                 state.role = action.payload.role
             })
             .addCase(signOut.rejected, (state, action) => {

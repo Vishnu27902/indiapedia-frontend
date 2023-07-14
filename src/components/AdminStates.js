@@ -5,6 +5,7 @@ import { notify, revokeNotify } from "../features/notificationSlice"
 import { toggle } from "../features/adminNavOptionSlice"
 import { Link } from "react-router-dom"
 
+import useAxios from "../hooks/useAxios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
@@ -12,21 +13,22 @@ import Loading from "./Loading"
 function AdminStates() {
     const { pageCount, limit, pageSelected, states, loading, error, message } = useSelector((state) => state.adminStates)
     const dispatch = useDispatch()
+    const axios = useAxios()
 
     const handlePageChange = (data) => {
         dispatch(setPageSelected(data.selected))
     }
 
     useLayoutEffect(() => {
-        dispatch(getAllStates())
-    }, [dispatch])
+        dispatch(getAllStates({ axios }))
+    }, [dispatch, axios])
 
     useEffect(() => {
-        dispatch(getStates({ pageSelected, limit }))
-    }, [dispatch, pageSelected, limit])
+        dispatch(getStates({ pageSelected, limit, axios: axios }))
+    }, [dispatch, pageSelected, limit, axios])
 
     useEffect(() => {
-        document.title="IndiaPedia - States"
+        document.title = "IndiaPedia - States"
         dispatch(toggle({ type: "states", active: true }))
         return (() => {
             dispatch(toggle({ type: "states", action: false }))

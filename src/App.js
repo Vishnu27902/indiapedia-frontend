@@ -15,7 +15,6 @@ import AdminAddCities from "./components/AdminAddCities"
 import AdminCities from "./components/AdminCities"
 import AdminAddUsers from "./components/AdminAddUsers"
 import AdminUsers from "./components/AdminUsers"
-import RoutesAuthLayout from "./components/RoutesAuthLayout"
 
 function App() {
 
