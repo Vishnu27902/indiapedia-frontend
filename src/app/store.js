@@ -14,6 +14,7 @@ import adminStatesReducer from "../features/adminStatesSlice";
 import adminCitiesReducer from "../features/adminCitiesSlice";
 import adminUsersReducer from "../features/adminUsersSlice";
 import authReducer from "../features/authSlice";
+import searchReducer from "../features/searchSlice";
 
 export const store = configureStore({
     reducer: {
@@ -31,6 +32,7 @@ export const store = configureStore({
         adminStates: adminStatesReducer,
         adminCities: adminCitiesReducer,
         adminUsers: adminUsersReducer,
-        auth: authReducer
+        auth: authReducer,
+        search: searchReducer
     }
 })
