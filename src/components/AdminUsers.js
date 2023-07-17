@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react"
+import { useEffect } from "react"
 import { getAllUsers, getUsers, setPageSelected } from "../features/adminUsersSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { notify, revokeNotify } from "../features/notificationSlice"
@@ -19,7 +19,7 @@ function AdminStates() {
         dispatch(setPageSelected(data.selected))
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         dispatch(getAllUsers({ axios }))
     }, [dispatch, axios])
 

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react"
+import { useEffect } from "react"
 import { getCities, getAllCities, setPageSelected } from "../features/adminCitiesSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { notify, revokeNotify } from "../features/notificationSlice"
@@ -19,7 +19,7 @@ function AdminCities() {
         dispatch(setPageSelected(data.selected))
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         dispatch(getAllCities({ axios }))
     }, [dispatch, axios])
 
