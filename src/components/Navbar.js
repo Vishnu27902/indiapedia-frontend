@@ -118,7 +118,7 @@ function Navbar() {
                                 dispatch(toggleRole("app"))
                                 dispatch(notify({ status: "success", message: MESSAGE }))
                                 setTimeout(() => {
-                                    revokeNotify()
+                                    dispatch(revokeNotify())
                                 }, 3000)
                             }}
                         >

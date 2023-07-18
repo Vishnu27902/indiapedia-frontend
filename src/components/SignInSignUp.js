@@ -36,7 +36,7 @@ function SignInSignUp() {
             dispatch(toggleRole("user"))
             dispatch(notify({ status: "success", message: authStates.message }))
             setTimeout(() => {
-                revokeNotify()
+                dispatch(revokeNotify())
             }, 3000)
         }
         if (signUpStates.success) {
@@ -44,19 +44,19 @@ function SignInSignUp() {
             dispatch(resetSignUp())
             dispatch(notify({ status: "success", message: signUpStates.message }))
             setTimeout(() => {
-                revokeNotify()
+                dispatch(revokeNotify())
             }, 3000)
         }
         if (authStates.error) {
-            dispatch(notify({ success: "error", message: authStates.message }))
+            dispatch(notify({ status: "error", message: authStates.message }))
             setTimeout(() => {
-                revokeNotify()
+                dispatch(revokeNotify())
             }, 3000)
         }
         if (signUpStates.error) {
-            dispatch(notify({ success: "error", message: signUpStates.message }))
+            dispatch(notify({ status: "error", message: signUpStates.message }))
             setTimeout(() => {
-                revokeNotify()
+                dispatch(revokeNotify())
             }, 3000)
         }
     }, [dispatch, authStates, signUpStates])

@@ -7,7 +7,7 @@ function InfoCard({ state, type }) {
     const [isHovered, setIsHovered] = useState(false)
     return (
         <div
-            className="flex flex-col justify-end w-64 h-[50%] sm:w-64 md:h-[65%] md:w-72 lg:h-[90%] rounded-2xl p-2 shrink-0 shadow-lg shadow-black hover:shadow-xl hover:shadow-black hover:border-orange-600 hover:border-2 active:scale-[0.9] cursor-pointer"
+            className="flex flex-col justify-end w-64 h-[50%] sm:w-64 md:h-[65%] md:w-72 lg:h-[90%] rounded-2xl p-2 shrink-0 shadow-lg shadow-black hover:shadow-xl hover:shadow-black hover:outline outline-orange-500 active:scale-[0.9] cursor-pointer transition-all hover:scale-[1.03]"
             onMouseOver={() => setIsHovered(true)}
             onMouseOut={() => setIsHovered(false)}
             style={{

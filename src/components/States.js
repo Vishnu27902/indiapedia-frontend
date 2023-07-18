@@ -12,6 +12,7 @@ import NoResultFound from "./NoResultFound"
 
 function States() {
     const { pageCount, limit, pageSelected, states, loading, error, message } = useSelector((state) => state.states)
+    const { role } = useSelector((state) => state.role)
     const dispatch = useDispatch()
     const axios = useAxios()
 
@@ -20,12 +21,12 @@ function States() {
     }
 
     useEffect(() => {
-        dispatch(getAllStates({ axios }))
-    }, [dispatch, axios])
+        dispatch(getAllStates({ axios, role }))
+    }, [dispatch, axios, role])
 
     useEffect(() => {
-        dispatch(getStates({ pageSelected, limit, axios: axios }))
-    }, [dispatch, pageSelected, limit, axios])
+        dispatch(getStates({ pageSelected, limit, axios: axios, role }))
+    }, [dispatch, pageSelected, limit, axios, role])
 
     useEffect(() => {
         document.title = "IndiaPedia - Cities"
@@ -78,18 +79,18 @@ function States() {
                         style={{ "backgroundColor": `rgba(255,255,255,0.3)` }}
                     >
                         {
-                            loading 
-                            ? <Loading /> 
-                            : states.length===0
-                            ? <NoResultFound/>
-                            :states.map((state) => {
-                                    return (
-                                        <InfoCard
-                                            key={state.code}
-                                            state={state}
-                                        />
-                                    )
-                                })
+                            loading
+                                ? <Loading />
+                                : states.length === 0
+                                    ? <NoResultFound />
+                                    : states.map((state) => {
+                                        return (
+                                            <InfoCard
+                                                key={state.code}
+                                                state={state}
+                                            />
+                                        )
+                                    })
                         }
                     </div>
                 </div>
