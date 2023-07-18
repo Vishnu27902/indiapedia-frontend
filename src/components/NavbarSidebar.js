@@ -5,8 +5,12 @@ import { useSelector, useDispatch } from "react-redux"
 import { toggleClose } from "../features/navSidebarSlice"
 import { signOut, reset } from "../features/authSlice"
 import { Link } from "react-router-dom"
+import { toggleRole } from "../features/roleSlice"
+import { notify,revokeNotify } from "../features/notificationSlice"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
+
+const MESSAGE = "Signed Out Successfully"
 
 function NavbarSidebar() {
     const homeSelected = useSelector((state) => state.optionSelected.home)
@@ -71,8 +75,13 @@ function NavbarSidebar() {
                             <button
                                 className="flex"
                                 onClick={() => {
-                                    dispatch(reset())
                                     dispatch(signOut())
+                                    dispatch(reset())
+                                    dispatch(toggleRole("app"))
+                                    dispatch(notify({ status: "success", message: MESSAGE }))
+                                    setTimeout(() => {
+                                        revokeNotify()
+                                    }, 3000)
                                 }}
                             >
                                 <li

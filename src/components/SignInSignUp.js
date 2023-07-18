@@ -10,6 +10,7 @@ import { getAccessToken } from "../features/authSlice"
 import { registerUser } from "../features/signUpSlice"
 import { useEffect } from "react"
 import { toggleRole } from "../features/roleSlice"
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 function SignInSignUp() {
     const doLogin = useSelector((state) => state.accountOption.login)
@@ -33,10 +34,30 @@ function SignInSignUp() {
             dispatch(login())
             dispatch(resetSignIn())
             dispatch(toggleRole("user"))
+            dispatch(notify({ status: "success", message: authStates.message }))
+            setTimeout(() => {
+                revokeNotify()
+            }, 3000)
         }
         if (signUpStates.success) {
             dispatch(register())
             dispatch(resetSignUp())
+            dispatch(notify({ status: "success", message: signUpStates.message }))
+            setTimeout(() => {
+                revokeNotify()
+            }, 3000)
+        }
+        if (authStates.error) {
+            dispatch(notify({ success: "error", message: authStates.message }))
+            setTimeout(() => {
+                revokeNotify()
+            }, 3000)
+        }
+        if (signUpStates.error) {
+            dispatch(notify({ success: "error", message: signUpStates.message }))
+            setTimeout(() => {
+                revokeNotify()
+            }, 3000)
         }
     }, [dispatch, authStates, signUpStates])
 

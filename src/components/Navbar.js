@@ -8,6 +8,7 @@ import { reset, signOut } from "../features/authSlice"
 import { setData } from "../features/searchSlice"
 import { useRef, useState } from "react"
 import { toggleRole } from "../features/roleSlice"
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 import NavbarSidebar from "./NavbarSidebar"
 import SignInSignUp from "./SignInSignUp"
@@ -15,6 +16,7 @@ import SignInSignUp from "./SignInSignUp"
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
 
 const REGEX = /^(\w+\S+)$/
+const MESSAGE = "Signed Out Successfully"
 
 function Navbar() {
     const inputRef = useRef()
@@ -114,6 +116,10 @@ function Navbar() {
                                 dispatch(signOut())
                                 dispatch(reset())
                                 dispatch(toggleRole("app"))
+                                dispatch(notify({ status: "success", message: MESSAGE }))
+                                setTimeout(() => {
+                                    revokeNotify()
+                                }, 3000)
                             }}
                         >
                             Sign Out

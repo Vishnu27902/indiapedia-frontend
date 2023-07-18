@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { toggleIsOpen } from "../features/adminNavbarSidebarSlice"
 import { signOut, reset } from "../features/authSlice"
 import { Link } from "react-router-dom"
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
+
+const MESSAGE = "Signed Out Successfully"
 
 function AdminNavbarSidebar() {
   const dispatch = useDispatch()
@@ -120,6 +123,10 @@ function AdminNavbarSidebar() {
             onClick={(e) => {
               dispatch(signOut())
               dispatch(reset())
+              dispatch(notify({ status: "success", message: MESSAGE }))
+              setTimeout(() => {
+                revokeNotify()
+              }, 3000)
               window.location.href = "/home"
             }}
           >

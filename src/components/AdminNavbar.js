@@ -5,9 +5,12 @@ import { useSelector, useDispatch } from "react-redux"
 import { reset, signOut } from "../features/authSlice"
 import { Link } from "react-router-dom"
 import { toggleRole } from "../features/roleSlice"
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 import AdminNavbarSidebar from "./AdminNavbarSidebar"
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
+
+const MESSAGE = "Signed Out Successfully"
 
 function AdminNavbar() {
     const isSidebarOpen = useSelector((state) => state.adminNavbarSidebar.isOpen)
@@ -89,6 +92,10 @@ function AdminNavbar() {
                             dispatch(signOut())
                             dispatch(reset())
                             dispatch(toggleRole("app"))
+                            dispatch(notify({ status: "success", message: MESSAGE }))
+                            setTimeout(() => {
+                                revokeNotify()
+                            }, 3000)
                             window.location.href = "/home"
                         }}
                     >
