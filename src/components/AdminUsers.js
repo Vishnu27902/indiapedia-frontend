@@ -9,6 +9,7 @@ import useAxios from "../hooks/useAxios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
+import NoResultFound from "./NoResultFound"
 
 function AdminStates() {
     const { pageCount, limit, pageSelected, users, loading, error, message } = useSelector((state) => state.adminUsers)
@@ -76,16 +77,19 @@ function AdminStates() {
                         style={{ "backgroundColor": `rgba(255,255,255,0.3)` }}
                     >
                         {
-                            loading ? <Loading /> :
-                                users.map((user) => {
-                                    return (
-                                        <InfoCard
-                                            key={user._id}
-                                            state={user}
-                                            type="user"
-                                        />
-                                    )
-                                })
+                            loading
+                                ? <Loading />
+                                : users.length === 0
+                                    ? <NoResultFound />
+                                    : users.map((user) => {
+                                        return (
+                                            <InfoCard
+                                                key={user._id}
+                                                state={user}
+                                                type="user"
+                                            />
+                                        )
+                                    })
                         }
                     </div>
                     <Link

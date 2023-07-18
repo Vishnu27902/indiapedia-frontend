@@ -8,6 +8,7 @@ import useAxios from "../hooks/useAxios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
+import NoResultFound from "./NoResultFound"
 
 function States() {
     const { pageCount, limit, pageSelected, states, loading, error, message } = useSelector((state) => state.states)
@@ -77,8 +78,11 @@ function States() {
                         style={{ "backgroundColor": `rgba(255,255,255,0.3)` }}
                     >
                         {
-                            loading ? <Loading /> :
-                                states.map((state) => {
+                            loading 
+                            ? <Loading /> 
+                            : states.length===0
+                            ? <NoResultFound/>
+                            :states.map((state) => {
                                     return (
                                         <InfoCard
                                             key={state.code}
