@@ -9,6 +9,7 @@ import { validateSignIn, validateSignInUsername, validateSignInPassword, resetSi
 import { getAccessToken } from "../features/authSlice"
 import { registerUser } from "../features/signUpSlice"
 import { useEffect } from "react"
+import { toggleRole } from "../features/roleSlice"
 
 function SignInSignUp() {
     const doLogin = useSelector((state) => state.accountOption.login)
@@ -31,6 +32,7 @@ function SignInSignUp() {
         if (authStates.success) {
             dispatch(login())
             dispatch(resetSignIn())
+            dispatch(toggleRole("user"))
         }
         if (signUpStates.success) {
             dispatch(register())

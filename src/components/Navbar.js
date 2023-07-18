@@ -7,6 +7,7 @@ import { login, register } from "../features/accountOptionSlice"
 import { reset, signOut } from "../features/authSlice"
 import { setData } from "../features/searchSlice"
 import { useRef, useState } from "react"
+import { toggleRole } from "../features/roleSlice"
 
 import NavbarSidebar from "./NavbarSidebar"
 import SignInSignUp from "./SignInSignUp"
@@ -112,6 +113,7 @@ function Navbar() {
                             onClick={(e) => {
                                 dispatch(signOut())
                                 dispatch(reset())
+                                dispatch(toggleRole("app"))
                             }}
                         >
                             Sign Out

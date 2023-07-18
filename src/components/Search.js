@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { getSearchResult } from "../features/searchSlice"
 import { useEffect } from "react"
 import { notify, revokeNotify } from "../features/notificationSlice"
-import { resetSearch } from "../features/searchSlice"
+// import { resetSearch } from "../features/searchSlice"
 import useAxios from "../hooks/useAxios"
 
 function Search() {

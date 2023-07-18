@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
 
-// import base64Converter from '../helpers/base64Converter'
 
 function InfoCard({ state, type }) {
     const [isHovered, setIsHovered] = useState(false)

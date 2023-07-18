@@ -1,5 +1,7 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { toggleRole } from "../features/roleSlice";
 
 import Notification from "./Notification";
 import AdminNavbar from "./AdminNavbar";
@@ -7,11 +9,16 @@ import AdminNavbar from "./AdminNavbar";
 function AdminLayout() {
     const success = useSelector((state) => state.notification.success)
     const error = useSelector((state) => state.notification.error)
-    const { username, role } = useSelector((state) => state.auth)
 
+    const { username, role } = useSelector((state) => state.auth)
+    
+    const dispatch=useDispatch()
     const location = useLocation()
     const from = location?.state?.from || "/home"
 
+    useEffect(()=>{
+        dispatch(dispatch(toggleRole("admin")))
+    })
     return (
         <>
             {

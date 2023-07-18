@@ -4,6 +4,7 @@ import { toggleIsOpen } from "../features/adminNavbarSidebarSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { reset, signOut } from "../features/authSlice"
 import { Link } from "react-router-dom"
+import { toggleRole } from "../features/roleSlice"
 
 import AdminNavbarSidebar from "./AdminNavbarSidebar"
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
@@ -87,6 +88,7 @@ function AdminNavbar() {
                         onClick={(e) => {
                             dispatch(signOut())
                             dispatch(reset())
+                            dispatch(toggleRole("app"))
                             window.location.href = "/home"
                         }}
                     >
