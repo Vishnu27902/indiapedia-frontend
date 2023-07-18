@@ -1,17 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleOpen } from "../features/navSidebarSlice"
 import { login, register } from "../features/accountOptionSlice"
 import { reset, signOut } from "../features/authSlice"
+import { setData } from "../features/searchSlice"
+import { useRef, useState } from "react"
 
 import NavbarSidebar from "./NavbarSidebar"
 import SignInSignUp from "./SignInSignUp"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
 
+const REGEX = /^(\w+\S+)$/
+
 function Navbar() {
+    const inputRef = useRef()
+    const searchRef = useRef()
+    const [searchData, setSearchData] = useState("")
     const homeSelected = useSelector((state) => state.optionSelected.home)
     const statesSelected = useSelector((state) => state.optionSelected.states)
     const citiesSelected = useSelector((state) => state.optionSelected.cities)
@@ -21,7 +28,18 @@ function Navbar() {
     const doRegister = useSelector((state) => state.accountOption.register)
     const { username } = useSelector((state) => state.auth)
 
+    const navigate = useNavigate()
+
     const dispatch = useDispatch()
+
+    function onSearch(e) {
+        e.preventDefault()
+        if (REGEX.test(searchData)) {
+            dispatch(setData(searchData))
+            navigate("search")
+            setSearchData("")
+        }
+    }
 
     return (
         <>
@@ -71,10 +89,18 @@ function Navbar() {
                         type="text"
                         placeholder="Search"
                         className="rounded-full text-violet-950 shadow-md shadow-black indent-3 p-1 pr-9 w-auto md:w-72  outline-none transition-all"
+                        ref={inputRef}
+                        value={searchData}
+                        onFocus={(e) => {
+                            searchRef.current.focus()
+                        }}
+                        onChange={(e) => setSearchData(e.target.value)}
                     />
                     <FontAwesomeIcon
                         icon={faSearch}
+                        ref={searchRef}
                         className="absolute cursor-pointer text-slate-700 ml-44 md:ml-60"
+                        onClick={(e) => onSearch(e)}
                     />
                 </form>
                 {username ?

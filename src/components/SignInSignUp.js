@@ -55,7 +55,7 @@ function SignInSignUp() {
     const handleSignUp = (e) => {
         e.preventDefault()
         dispatch(registerUser({
-            name: signUpStates.name,
+            name: signUpStates.username,
             email: signUpStates.email,
             phNumber: signUpStates.phNumber,
             password: signUpStates.password

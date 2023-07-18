@@ -15,6 +15,7 @@ import AdminAddCities from "./components/AdminAddCities"
 import AdminCities from "./components/AdminCities"
 import AdminAddUsers from "./components/AdminAddUsers"
 import AdminUsers from "./components/AdminUsers"
+import Search from "./components/Search"
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="/states" element={<InfoPage key="states" type="states" />} />
                 <Route path="/cities" element={<InfoPage key="cities" type="cities" />} />
+                <Route path="/search" element={<Search />} />
                 <Route path="/dashboard" element={<Dashboard />} />
             </Route>
             <Route path="/admin" element={<AdminLayout />}>

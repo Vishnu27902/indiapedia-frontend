@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export const getSearchResult = createAsyncThunk("search/getData", async (data) => {
-    const result = await data.axios.get(`/app/search?data=${data}`)
+    const result = await data.axios.get(`/app/search?data=${data.data}`)
     return result.data
 })
 
@@ -21,7 +21,7 @@ const searchSlice = createSlice({
         setData: (state, action) => {
             state.data = action.payload
         },
-        reset: (state, action) => {
+        resetSearch: (state, action) => {
             state.error = false
             state.loading = false
             state.message = ""
@@ -52,6 +52,6 @@ const searchSlice = createSlice({
     }
 })
 
-export const { setData, reset } = searchSlice.actions
+export const { setData, resetSearch } = searchSlice.actions
 
 export default searchSlice.reducer
