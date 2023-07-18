@@ -18,6 +18,7 @@ import searchReducer from "../features/searchSlice";
 import roleReducer from "../features/roleSlice";
 import statesReducer from "../features/statesSlice";
 import citiesReducer from "../features/citiesSlice";
+import mainFrameSidebarReducer from "../features/mainFrameSidebarSlice";
 
 export const store = configureStore({
     reducer: {
@@ -39,6 +40,7 @@ export const store = configureStore({
         search: searchReducer,
         role: roleReducer,
         states: statesReducer,
-        cities: citiesReducer
+        cities: citiesReducer,
+        mainFrameSidebar: mainFrameSidebarReducer
     }
 })
