@@ -31,7 +31,7 @@ function AdminStates() {
         document.title = "IndiaPedia - Users"
         dispatch(toggle({ type: "users", active: true }))
         return (() => {
-            dispatch(toggle({ type: "users", action: false }))
+            dispatch(toggle({ type: "users", active: false }))
         })
     }, [dispatch])
 

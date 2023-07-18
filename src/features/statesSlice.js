@@ -15,14 +15,14 @@ const initialState = {
 
 export const getAllStates = createAsyncThunk(`info/getAllCities`, async (data) => {
     const result = await data.axios.get(`app/states`)
-    return result.states
+    return result.data.statesData
 })
 
 export const getStates = createAsyncThunk("info/getCities", async (data) => {
     const page = data.page
     const limit = data.limit
     const result = await data.axios.get(`app/states?page=${page}&limit=${limit}`)
-    return result.states
+    return result.data.statesData
 })
 
 const citiesSlice = createSlice({

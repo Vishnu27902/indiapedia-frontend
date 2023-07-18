@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom"
 
 import Layout from "./components/Layout"
 import Home from "./components/Home"
-import InfoPage from "./components/InfoPage"
 import Dashboard from "./components/Dashboard"
 import AdminLayout from "./components/AdminLayout"
 import AdminHome from "./components/AdminHome"
@@ -16,6 +15,8 @@ import AdminCities from "./components/AdminCities"
 import AdminAddUsers from "./components/AdminAddUsers"
 import AdminUsers from "./components/AdminUsers"
 import Search from "./components/Search"
+import States from "./components/States"
+import Cities from "./components/Cities"
 
 function App() {
 
@@ -23,8 +24,8 @@ function App() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="/states" element={<InfoPage key="states" type="states" />} />
-                <Route path="/cities" element={<InfoPage key="cities" type="cities" />} />
+                <Route path="/states" element={<States />} />
+                <Route path="/cities" element={<Cities />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/dashboard" element={<Dashboard />} />
             </Route>

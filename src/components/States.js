@@ -1,17 +1,16 @@
 import { useEffect } from "react"
-import { getCities, getAllCities, setPageSelected } from "../features/adminCitiesSlice"
+import { getStates, getAllStates, setPageSelected } from "../features/statesSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { notify, revokeNotify } from "../features/notificationSlice"
-import { toggle } from "../features/adminNavOptionSlice"
-import { Link } from "react-router-dom"
+import { toggle } from "../features/optionSelectedSlice"
 
 import useAxios from "../hooks/useAxios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
 
-function AdminCities() {
-    const { pageCount, limit, pageSelected, cities, loading, error, message } = useSelector((state) => state.adminCities)
+function States() {
+    const { pageCount, limit, pageSelected, states, loading, error, message } = useSelector((state) => state.states)
     const dispatch = useDispatch()
     const axios = useAxios()
 
@@ -20,18 +19,18 @@ function AdminCities() {
     }
 
     useEffect(() => {
-        dispatch(getAllCities({ axios }))
+        dispatch(getAllStates({ axios }))
     }, [dispatch, axios])
 
     useEffect(() => {
-        dispatch(getCities({ pageSelected, limit, axios: axios }))
+        dispatch(getStates({ pageSelected, limit, axios: axios }))
     }, [dispatch, pageSelected, limit, axios])
 
     useEffect(() => {
         document.title = "IndiaPedia - Cities"
-        dispatch(toggle({ type: "cities", active: true }))
+        dispatch(toggle({ option: "states", active: true }))
         return (() => {
-            dispatch(toggle({ type: "cities", active: false }))
+            dispatch(toggle({ option: "states", active: false }))
         })
     }, [dispatch])
 
@@ -55,7 +54,7 @@ function AdminCities() {
                     <h1
                         className=" text-5xl text-violet-300  text-center"
                     >
-                        Cities
+                        States
                     </h1>
                     <hr
                         className=" my-5 border-violet-950"
@@ -79,30 +78,20 @@ function AdminCities() {
                     >
                         {
                             loading ? <Loading /> :
-                                cities.map((city) => {
+                                states.map((state) => {
                                     return (
                                         <InfoCard
-                                            key={city.code}
-                                            state={city}
+                                            key={state.code}
+                                            state={state}
                                         />
                                     )
                                 })
                         }
                     </div>
-                    <Link
-                        to="add"
-                        className="flex justify-center self-center"
-                    >
-                        <button
-                            className="p-2 bg-violet-600 text-white w-32 shadow-black shadow-md hover:shadow-lg hover:shadow-black hover:bg-violet-500 active:scale-50 self-center m-2 rounded-lg"
-                        >
-                            Add City
-                        </button>
-                    </Link>
                 </div>
             </div >
         </>
     )
 }
 
-export default AdminCities
+export default States

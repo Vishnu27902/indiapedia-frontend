@@ -15,14 +15,14 @@ const initialState = {
 
 export const getAllCities = createAsyncThunk(`info/getAllCities`, async (data) => {
     const result = await data.axios.get(`app/cities`)
-    return result.cities
+    return result.data.citiesData
 })
 
 export const getCities = createAsyncThunk("info/getCities", async (data) => {
     const page = data.page
     const limit = data.limit
     const result = await data.axios.get(`app/cities?page=${page}&limit=${limit}`)
-    return result.cities
+    return result.data.citiesData
 })
 
 const citiesSlice = createSlice({
@@ -49,7 +49,7 @@ const citiesSlice = createSlice({
                 state.loading = false
                 state.error = false
                 state.message = ""
-                state.allStates = action.payload
+                state.allCities = action.payload
             })
             .addCase(getCities.pending, (state, action) => {
                 state.loading = true
@@ -65,7 +65,7 @@ const citiesSlice = createSlice({
                 state.loading = false
                 state.error = false
                 state.message = ""
-                state.states = action.payload
+                state.cities = action.payload
             })
     }
 })

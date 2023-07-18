@@ -31,7 +31,7 @@ function AdminStates() {
         document.title = "IndiaPedia - States"
         dispatch(toggle({ type: "states", active: true }))
         return (() => {
-            dispatch(toggle({ type: "states", action: false }))
+            dispatch(toggle({ type: "states", active: false }))
         })
     }, [dispatch])
 
