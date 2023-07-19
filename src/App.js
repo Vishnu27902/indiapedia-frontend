@@ -17,6 +17,7 @@ import AdminUsers from "./components/AdminUsers"
 import Search from "./components/Search"
 import States from "./components/States"
 import Cities from "./components/Cities"
+import DataFrame from "./components/DataFrame"
 
 function App() {
 
@@ -24,8 +25,14 @@ function App() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="/states" element={<States />} />
-                <Route path="/cities" element={<Cities />} />
+                <Route path="/states">
+                    <Route index element={<States />} />
+                    <Route path=":id" element={<DataFrame type="states" />} />
+                </Route>
+                <Route path="/cities">
+                    <Route index element={<Cities />} />
+                    <Route path=":id" element={<DataFrame type="cities" />} />
+                </Route>
                 <Route path="/search" element={<Search />} />
                 <Route path="/dashboard" element={<Dashboard />} />
             </Route>
