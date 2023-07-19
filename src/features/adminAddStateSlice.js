@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../api/axios";
 
 const initialState = {
     success: false,
@@ -7,8 +6,9 @@ const initialState = {
     message: ""
 }
 
-export const postState = createAsyncThunk("states/addState", async (stateData) => {
-    await axios.post("/admin/state", stateData)
+export const postState = createAsyncThunk("states/addState", async (data) => {
+    const { axios, state } = data
+    await axios.post("/admin/state", state)
 })
 
 const adminAddStateSlice = createSlice({

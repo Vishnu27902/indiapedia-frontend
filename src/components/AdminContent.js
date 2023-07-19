@@ -18,7 +18,7 @@ function reducer(state, action) {
         case "table":
             return { ...state, table: action.payload }
         case "list":
-            return { ...state, table: action.payload }
+            return { ...state, list: action.payload }
         default:
             throw new Error(`Unhandled action ${action}`)
     }
@@ -28,7 +28,6 @@ function AdminContent({ rootDispatch, index, mainContent }) {
     const [state, dispatch] = useReducer(reducer, { order: "", category: "content", img: "", content: "", table: [], list: [] })
 
     useEffect(() => {
-        console.log("hello")
         rootDispatch({ type: "mainContent", payload: state, index })
     }, [rootDispatch, index, state, mainContent])
 

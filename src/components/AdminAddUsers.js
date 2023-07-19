@@ -3,6 +3,7 @@ import { useEffect, useReducer } from "react"
 import { notify, revokeNotify } from "../features/notificationSlice"
 import { postUser, revokeStatus } from "../features/adminAddUserSlice"
 import { toggle } from "../features/adminNavOptionSlice"
+import useAxios from "../hooks/useAxios"
 
 import AdminImage from "./AdminImage"
 
@@ -37,12 +38,14 @@ function AdminAddUsers() {
     confirmPassword: "",
     role: ""
   })
+
+  const axios = useAxios()
   const adminAddUserStates = useSelector((state) => state.adminAddUser)
   const dispatch = useDispatch()
 
   function addUser(e) {
     e.preventDefault()
-    dispatch(postUser(state))
+    dispatch(postUser({ state, axios }))
   }
 
   useEffect(() => {

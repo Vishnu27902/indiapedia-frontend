@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Row from './Row'
+import AdminTableRow from "./AdminTableRow"
 
 function AdminList({ dispatch }) {
     const [itemComponent, setItemComponent] = useState([])
@@ -8,12 +8,12 @@ function AdminList({ dispatch }) {
 
     function handleOnClick(e) {
         e.preventDefault()
-        setItemComponent((prev) => [...prev, <Row type="list" setRow={setItem} index={index} />])
+        setItemComponent((prev) => [...prev, <AdminTableRow type="list" setRow={setItem} index={index} />])
         setIndex(prev => prev + 1)
     }
 
     useEffect(() => {
-        dispatch({ type: "table", payload: item })
+        dispatch({ type: "list", payload: item })
     }, [dispatch, item])
 
     return (

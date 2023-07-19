@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { postState, revokeStatus } from "../features/adminAddStateSlice"
 import { notify, revokeNotify } from "../features/notificationSlice"
 import { toggle } from "../features/adminNavOptionSlice"
+import useAxios from "../hooks/useAxios"
 
 import AdminContent from "./AdminContent"
 import AdminImage from "./AdminImage"
@@ -37,6 +38,8 @@ function AdminAddStates() {
   )
   const [contentList, setContentList] = useState([])
   const [index, setIndex] = useState(0)
+
+  const axios = useAxios()
   const dispatch = useDispatch()
   const adminAddStateStates = useSelector((state) => state.adminAddState)
 
@@ -54,7 +57,7 @@ function AdminAddStates() {
 
   function addState(e) {
     e.preventDefault()
-    dispatch(postState(state))
+    dispatch(postState({ state, axios }))
   }
 
   useEffect(() => {

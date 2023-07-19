@@ -7,6 +7,7 @@ import AdminImage from "./AdminImage"
 import { postCity, revokeStatus } from "../features/adminAddCitySlice"
 import { notify, revokeNotify } from "../features/notificationSlice"
 import { toggle } from "../features/adminNavOptionSlice"
+import useAxios from "../api/axios"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -41,6 +42,8 @@ function AdminAddCities() {
   )
   const [contentList, setContentList] = useState([])
   const [index, setIndex] = useState(0)
+
+  const axios = useAxios()
   const dispatch = useDispatch()
   const adminAddCityStates = useSelector((state) => state.adminAddCity)
 
@@ -58,7 +61,7 @@ function AdminAddCities() {
 
   function addState(e) {
     e.preventDefault()
-    dispatch(postCity(state))
+    dispatch(postCity({ state, axios }))
   }
 
   useEffect(() => {
