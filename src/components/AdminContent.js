@@ -3,6 +3,7 @@ import { useEffect, useReducer } from 'react'
 import AdminInputContent from './AdminInputContent'
 import AdminImage from './AdminImage'
 import AdminTable from './AdminTable'
+import AdminList from './AdminList'
 
 function reducer(state, action) {
     switch (action.type) {
@@ -16,18 +17,20 @@ function reducer(state, action) {
             return { ...state, content: action.payload }
         case "table":
             return { ...state, table: action.payload }
+        case "list":
+            return { ...state, table: action.payload }
         default:
             throw new Error(`Unhandled action ${action}`)
     }
 }
 
-function AdminContent({ rootDispatch, index,mainContent }) {
-    const [state, dispatch] = useReducer(reducer, { order: "", category: "content", img: "", content: "", table: [] })
+function AdminContent({ rootDispatch, index, mainContent }) {
+    const [state, dispatch] = useReducer(reducer, { order: "", category: "content", img: "", content: "", table: [], list: [] })
 
     useEffect(() => {
         console.log("hello")
         rootDispatch({ type: "mainContent", payload: state, index })
-    }, [rootDispatch, index, state,mainContent])
+    }, [rootDispatch, index, state, mainContent])
 
     return (
         <>
@@ -65,7 +68,13 @@ function AdminContent({ rootDispatch, index,mainContent }) {
                 <option value="h5">H5</option>
             </select>
             {
-                state.category === "img" ? <AdminImage rootDispatch={dispatch} /> : state.category === "table" ? <AdminTable dispatch={dispatch} /> : <AdminInputContent type={state.category} dispatch={dispatch} />
+                state.category === "img"
+                    ? <AdminImage rootDispatch={dispatch} />
+                    : state.category === "table"
+                        ? <AdminTable dispatch={dispatch} />
+                        : state.category === "list"
+                            ? <AdminList dispatch={dispatch} />
+                            : <AdminInputContent type={state.category} dispatch={dispatch} />
             }
         </>
     )

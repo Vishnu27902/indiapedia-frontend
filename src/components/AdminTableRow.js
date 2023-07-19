@@ -1,10 +1,10 @@
-function AdminTableRow({ index, setRow }) {
+function AdminTableRow({ index, setRow, type }) {
     return (
         <>
             <label
                 htmlFor='row'
             >
-                Row
+                {type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}
             </label>
             <input
                 className='text-md border border-black outline-black rounded-md px-2 py-1'
