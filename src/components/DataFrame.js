@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { notify, revokeNotify } from '../features/notificationSlice'
+import Loading from './Loading'
 
 function DataFrame({ type }) {
     const dispatch = useDispatch()
@@ -52,9 +53,13 @@ function DataFrame({ type }) {
                 />
             }
             <main className="fixed right-0 flex flex-col items-center pt-2 bg-indigo-950 w-11/12 lg:w-3/4 top-20 overflow-y-auto gap-10 scroll-hide" style={{ "height": "90%" }}>
-                <DataFrameShower
-                    data={data}
-                />
+                {
+                    data.length === 0
+                        ? <Loading />
+                        : <DataFrameShower
+                            data={data}
+                        />
+                }
                 <Footer />
             </main>
         </>

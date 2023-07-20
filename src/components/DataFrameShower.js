@@ -8,23 +8,33 @@ import Image from "./Image"
 
 function DataFrameShower({ data }) {
     const { name, mainContent } = data
-    function injecter(data) {
+    function injector(data) {
         const { category } = data
         switch (category) {
             case "h1":
-                return <HeadingOne 
-                    // data={}
+                return <HeadingOne
+                    data={data.content}
                 />
             case "h3":
-                return <HeadingThree />
+                return <HeadingThree
+                    data={data.content}
+                />
             case "h5":
-                return <HeadingFive />
+                return <HeadingFive
+                    data={data.content}
+                />
             case "description":
-                return <Description />
+                return <Description
+                    data={data.content}
+                />
             case "img":
-                return <Image />
+                return <Image
+                    data={data.img}
+                />
             case "iframe":
-                return <IFrame />
+                return <IFrame
+                    data={data.content}
+                />
             default:
                 throw new Error("No Such Category Exists")
         }
@@ -39,7 +49,9 @@ function DataFrameShower({ data }) {
                         </p>
                     </div>
                     {
-
+                        mainContent.map((ele) => {
+                            return injector(ele)
+                        })
                     }
                 </div>
             </div>

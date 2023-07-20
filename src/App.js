@@ -5,9 +5,9 @@ import Home from "./components/Home"
 import Dashboard from "./components/Dashboard"
 import AdminLayout from "./components/AdminLayout"
 import AdminHome from "./components/AdminHome"
-import AdminEditState from "./components/AdminEditState"
+// import AdminEditState from "./components/AdminEditState"
 import AdminEditUser from "./components/AdminEditUser"
-import AdminEditCity from "./components/AdminEditCity"
+// import AdminEditCity from "./components/AdminEditCity"
 import AdminStates from "./components/AdminStates"
 import AdminAddStates from "./components/AdminAddStates"
 import AdminAddCities from "./components/AdminAddCities"
@@ -41,12 +41,12 @@ function App() {
                 <Route path="states">
                     <Route index element={<AdminStates />} />
                     <Route path="add" element={<AdminAddStates />} />
-                    <Route path=":id" element={<AdminEditState />} />
+                    <Route path=":id" element={<DataFrame type="states" />} />
                 </Route>
                 <Route path="cities">
                     <Route index element={<AdminCities />} />
                     <Route path="add" element={<AdminAddCities />} />
-                    <Route path=":id" element={<AdminEditCity />} />
+                    <Route path=":id" element={<DataFrame type="cities" />} />
                 </Route>
                 <Route path="users">
                     <Route index element={<AdminUsers />} />
