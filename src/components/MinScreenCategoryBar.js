@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { useDispatch } from "react-redux"
 import { toggleOpen } from "../features/mainFrameSidebarSlice"
+import Loading from "./Loading"
 
 function MinScreenCategoryBar({ state, data }) {
     const dispatch = useDispatch()
@@ -30,7 +31,7 @@ function MinScreenCategoryBar({ state, data }) {
                                     </span>
                                 </li>
                             )
-                        }) || ""
+                        }) || <Loading />
                     }
                 </ul>
             </div>

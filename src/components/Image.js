@@ -1,12 +1,11 @@
 
 
-function Image() {
+function Image({ data }) {
     return (
         <img
-            src={History}
-            id='history'
+            src={data.data}
             className='m-5 rounded-3xl'
-            alt='Tamilnadu-History'
+            alt={data.alt}
         />
     )
 }

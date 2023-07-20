@@ -14,7 +14,7 @@ function reducer(state, action) {
         case "img":
             return { ...state, img: action.payload }
         case "content":
-            return { ...state, content: action.payload }
+            return { ...state, description: action.payload }
         case "table":
             return { ...state, table: action.payload }
         case "list":
@@ -25,7 +25,7 @@ function reducer(state, action) {
 }
 
 function AdminContent({ rootDispatch, index, mainContent }) {
-    const [state, dispatch] = useReducer(reducer, { order: "", category: "content", img: "", content: "", table: [], list: [] })
+    const [state, dispatch] = useReducer(reducer, { order: "", category: "description", img: "", description: "", table: [], list: [] })
 
     useEffect(() => {
         rootDispatch({ type: "mainContent", payload: state, index })

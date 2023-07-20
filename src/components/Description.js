@@ -1,11 +1,11 @@
 
 
-function Description() {
+function Description({data}) {
     return (
         <p
             className='text-justify indent-4'
         >
-            Description
+            {data}
         </p>
     )
 }
