@@ -13,7 +13,7 @@ function reducer(state, action) {
             return { ...state, category: action.payload }
         case "img":
             return { ...state, img: action.payload }
-        case "content":
+        case "description":
             return { ...state, description: action.payload }
         case "table":
             return { ...state, table: action.payload }
