@@ -18,15 +18,15 @@ function Posts({ data, type }) {
 
     useEffect(() => {
         if (error) {
-            notify({ status: "success", message })
+            dispatch(notify({ status: "success", message }))
             setTimeout(() => {
-                revokeNotify()
+                dispatch(revokeNotify())
             }, 3000)
         }
         if (success) {
-            notify({ status: "error", message })
+            dispatch(notify({ status: "error", message }))
             setTimeout(() => {
-                revokeNotify()
+                dispatch(revokeNotify())
             }, 3000)
         }
     }, [error, success])

@@ -124,11 +124,15 @@ function Navbar() {
                         >
                             Sign Out
                         </button>
+                        <Link
+                            to="dashboard"
+                        >
                         <button
                             className={`p-2 grid items-center rounded h-10 hover:bg-violet-500 hover:text-white hover:shadow-md hover:shadow-black transition-all duration-200 active:scale-50 ${dashboardSelected ? "bg-violet-500" : ""}`}
                         >
                             Dashboard
                         </button>
+                        </Link>
                     </div>) : (<div
                         className="hidden lg:flex justify-center items-center md:gap-5 p-10"
                     >

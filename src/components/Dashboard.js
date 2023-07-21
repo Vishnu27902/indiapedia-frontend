@@ -1,9 +1,43 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons"
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toggleUpdate, updateProfile, getProfile, deleteProfile } from "../features/dashboardSlice";
+import { useReducer, useEffect } from "react";
 
+import useAxios from "../hooks/useAxios";
 import DummyImg from "../images/Dummy image.png"
 
+const reducer = (state, action) => {
+    switch (action.type) {
+        case "name":
+            return { ...state, name: action.payload }
+        case "phNumber":
+            return { ...state, phNumber: action.payload }
+        case "img":
+            return { ...state, img: action.payload }
+        default:
+            throw new Error("No Such Action Exists")
+    }
+}
+
 function Dashboard() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const axios = useAxios()
+
+    const { role } = useSelector(state => state.role)
+    const { doUpdate, name, img, email, phNumber } = useSelector(state => state.dashboard)
+    const [state, dispatcher] = useReducer(reducer, { name: name, img: img, email: email, phNumber: phNumber })
+
+    function handleUpdate() {
+
+    }
+
+    useEffect(() => {
+        dispatch(getProfile())
+    }, [])
+
     return (
         <div
             className='fixed flex flex-col bg-blue-900 top-20 h-[90%] w-full p-5 gap-5 overflow-auto scroll-hide overflow-y-auto'
@@ -32,38 +66,14 @@ function Dashboard() {
                         className="border-blue-950"
                     />
                     <img
-                        src={DummyImg}
+                        src={img || DummyImg}
                         alt="DP"
                         className='h-[40%] w-[30%] rounded-[100%] self-center shadow-xl shadow-black'
                     />
                     <form
                         className="flex flex-col gap-2"
                     >
-                        <label
-                            className="text-blue-100"
-                            htmlFor="file"
-                        >
-                            DP Change
-                        </label>
-                        <div
-                            className="flex gap-1 items-center"
-                        >
-                            <input
-                                id="file"
-                                accept=".jpg,.jpeg,.png,.webp"
-                                type='file'
-                            />
-                        </div>
-                        <label
-                            className="text-blue-100"
-                        >
-                            Username
-                        </label>
-                        <input
-                            className="px-2 py-1 rounded-full outline-orange-500"
-                            placeholder="Enter the Username"
-                            required
-                        />
+
                         <label
                             className="text-blue-100"
                         >
@@ -72,6 +82,42 @@ function Dashboard() {
                         <input
                             className="px-2 py-1 rounded-full outline-orange-500 "
                             placeholder="Enter the Email ID"
+                            readOnly={!doUpdate}
+                            value={email}
+                            required
+                        />
+                        {
+                            doUpdate && (
+                                <>
+                                    <label
+                                        className="text-blue-100"
+                                        htmlFor="file"
+                                    >
+                                        DP Change
+                                    </label>
+                                    <div
+                                        className="flex gap-1 items-center"
+                                    >
+                                        <input
+                                            id="file"
+                                            accept=".jpg,.jpeg,.png,.webp"
+                                            type='file'
+                                            readOnly={!doUpdate}
+                                        />
+                                    </div>
+                                </>
+                            )
+                        }
+                        <label
+                            className="text-blue-100"
+                        >
+                            Username
+                        </label>
+                        <input
+                            className="px-2 py-1 rounded-full outline-orange-500"
+                            placeholder="Enter the Username"
+                            readOnly={!doUpdate}
+                            value={name}
                             required
                         />
                         <label
@@ -82,28 +128,40 @@ function Dashboard() {
                         <input
                             className="px-2 py-1 rounded-full outline-orange-500"
                             placeholder="Enter the Phone Number"
+                            readOnly={!doUpdate}
+                            value={phNumber}
                             required
                         />
                     </form>
-                    <h2
+                    {/* <h2
                         className="text-blue-100"
                     >
                         Created on
-                    </h2>
-                    <button
-                        className="bg-gray-600 hover:bg-gray-500 text-white active:scale-50 transition-all self-end p-3 rounded-xl shadow-md shadow-black hover:shadow-lg hover:shadow-black"
-                    >
-                        <FontAwesomeIcon
-                            icon={faEdit}
-                        />
-                    </button>
-                    <button
-                        className=" bg-green-600 hover:bg-green-400 text-white active:scale-50 transition-all self-end p-3 rounded-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
-                    >
-                        Update Changes
-                    </button>
+                    </h2> */}
+                    {
+                        !doUpdate && (<button
+                            className="bg-gray-600 hover:bg-gray-500 text-white active:scale-50 transition-all self-end p-3 rounded-xl shadow-md shadow-black hover:shadow-lg hover:shadow-black"
+                            onClick={() => dispatch(toggleUpdate(true))}
+                        >
+                            <FontAwesomeIcon
+                                icon={faEdit}
+                            />
+                        </button>)
+                    }
+                    {
+                        doUpdate && (<button
+                            className=" bg-green-600 hover:bg-green-400 text-white active:scale-50 transition-all self-end p-3 rounded-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
+                            onClick={handleUpdate}
+                        >
+                            Update Changes
+                        </button>)
+                    }
                     <button
                         className="p-3 rounded-full self-center bg-red-600 text-white hover:bg-red-400 active:scale-50 transition-all  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
+                        onClick={() => {
+                            dispatch(deleteProfile())
+                            navigate("/home")
+                        }}
                     >
                         Delete Account
                     </button>

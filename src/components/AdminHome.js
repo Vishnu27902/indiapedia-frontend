@@ -15,7 +15,7 @@ function AdminHome() {
     return (() => {
       dispatch(toggle({ type: "home", action: false }))
     })
-  })
+  },[])
 
   return (
     <div

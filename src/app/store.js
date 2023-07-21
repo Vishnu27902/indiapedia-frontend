@@ -21,6 +21,7 @@ import citiesReducer from "../features/citiesSlice";
 import mainFrameSidebarReducer from "../features/mainFrameSidebarSlice";
 import dataFrameReducer from "../features/dataFrameSlice";
 import postReducer from "../features/postSlice";
+import dashboardReducer from "../features/dashboardSlice";
 
 export const store = configureStore({
     reducer: {
@@ -45,6 +46,7 @@ export const store = configureStore({
         cities: citiesReducer,
         mainFrameSidebar: mainFrameSidebarReducer,
         dataFrame: dataFrameReducer,
-        post: postReducer
+        post: postReducer,
+        dashboard: dashboardReducer
     }
 })
