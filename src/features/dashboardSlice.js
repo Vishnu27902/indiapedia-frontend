@@ -15,7 +15,7 @@ const initialState = {
 export const getProfile = createAsyncThunk("profile/get", async (data) => {
     const { axios, role } = data
     const userData = await axios.get(`/${role}`)
-    return userData
+    return userData.data.userData
 })
 
 export const updateProfile = createAsyncThunk("profile/update", async (data) => {
@@ -55,6 +55,7 @@ const dashboardSlice = createSlice({
                 state.loading = false
                 state.error = false
                 state.message = ""
+                console.log(action.payload)
                 const { name, _id, phNumber, img } = action.payload
                 state.name = name
                 state.img = img.data

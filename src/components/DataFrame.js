@@ -24,7 +24,7 @@ function DataFrame({ type }) {
         dispatch(getData({ role, type, axios, id }))
 
         return (() => dispatch(reset()))
-    }, [])
+    }, [dispatch, role, type, axios, id])
 
     useEffect(() => {
         if (error) {
@@ -33,7 +33,7 @@ function DataFrame({ type }) {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [error, message])
+    }, [dispatch, error, message])
 
     const { doOpen } = useSelector((state) => state.mainFrameSidebar)
     return (

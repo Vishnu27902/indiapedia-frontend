@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toggleUpdate, updateProfile, getProfile, deleteProfile } from "../features/dashboardSlice";
 import { useReducer, useEffect } from "react";
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 import useAxios from "../hooks/useAxios";
 import DummyImg from "../images/Dummy image.png"
@@ -27,16 +28,51 @@ function Dashboard() {
     const axios = useAxios()
 
     const { role } = useSelector(state => state.role)
-    const { doUpdate, name, img, email, phNumber } = useSelector(state => state.dashboard)
+
+    useEffect(() => {
+        dispatch(getProfile({ axios, role }))
+    }, [axios, role, dispatch])
+
+    const { success, error, message, doUpdate, name, img, email, phNumber } = useSelector(state => state.dashboard)
     const [state, dispatcher] = useReducer(reducer, { name: name, img: img, email: email, phNumber: phNumber })
 
     function handleUpdate() {
+        dispatch(updateProfile({ axios, role, name: state.name, phNumber: state.phNumber, img: img }))
+        dispatch(toggleUpdate(false))
+    }
 
+    const covertToBase64 = async (e) => {
+        if (e.target.files[0]) {
+            const prom = (e) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader()
+                    reader.onload = (e) => resolve(e.target.result)
+                    reader.readAsDataURL(e.target.files[0])
+                })
+            }
+            await prom(e).then((data) => {
+                dispatcher({ type: "img", payload: data })
+            })
+        }
+        else {
+            dispatcher({ type: "img", payload: undefined })
+        }
     }
 
     useEffect(() => {
-        dispatch(getProfile())
-    }, [])
+        if (error) {
+            dispatch(notify({ status: "error", message }))
+            setTimeout(() => {
+                dispatch(revokeNotify())
+            }, 3000)
+        }
+        if (success) {
+            dispatch(notify({ status: "success", message }))
+            setTimeout(() => {
+                dispatch(revokeNotify())
+            })
+        }
+    }, [dispatch, success, message, error])
 
     return (
         <div
@@ -66,7 +102,7 @@ function Dashboard() {
                         className="border-blue-950"
                     />
                     <img
-                        src={img || DummyImg}
+                        src={state.img || DummyImg}
                         alt="DP"
                         className='h-[40%] w-[30%] rounded-[100%] self-center shadow-xl shadow-black'
                     />
@@ -82,8 +118,8 @@ function Dashboard() {
                         <input
                             className="px-2 py-1 rounded-full outline-orange-500 "
                             placeholder="Enter the Email ID"
-                            readOnly={!doUpdate}
-                            value={email}
+                            readOnly
+                            value={state.email}
                             required
                         />
                         {
@@ -102,6 +138,7 @@ function Dashboard() {
                                             id="file"
                                             accept=".jpg,.jpeg,.png,.webp"
                                             type='file'
+                                            onChange={(e) => covertToBase64(e)}
                                             readOnly={!doUpdate}
                                         />
                                     </div>
@@ -117,7 +154,8 @@ function Dashboard() {
                             className="px-2 py-1 rounded-full outline-orange-500"
                             placeholder="Enter the Username"
                             readOnly={!doUpdate}
-                            value={name}
+                            value={state.name}
+                            onChange={(e) => dispatcher({ type: "name", payload: e.target.value })}
                             required
                         />
                         <label
@@ -129,7 +167,8 @@ function Dashboard() {
                             className="px-2 py-1 rounded-full outline-orange-500"
                             placeholder="Enter the Phone Number"
                             readOnly={!doUpdate}
-                            value={phNumber}
+                            value={state.phNumber}
+                            onChange={(e) => dispatcher({ type: "phNumber", payload: e.target.value })}
                             required
                         />
                     </form>
@@ -149,12 +188,23 @@ function Dashboard() {
                         </button>)
                     }
                     {
-                        doUpdate && (<button
-                            className=" bg-green-600 hover:bg-green-400 text-white active:scale-50 transition-all self-end p-3 rounded-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
-                            onClick={handleUpdate}
-                        >
-                            Update Changes
-                        </button>)
+                        doUpdate && (
+                            <div
+                                className="flex gap-5 justify-center"
+                            >
+                                <button
+                                    className=" bg-red-600 hover:bg-red-400 text-white active:scale-50 transition-all self-end p-3 rounded-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
+                                    onClick={() => dispatch(toggleUpdate(false))}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className=" bg-green-600 hover:bg-green-400 text-white active:scale-50 transition-all self-end p-3 rounded-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
+                                    onClick={handleUpdate}
+                                >
+                                    Update Changes
+                                </button>
+                            </div>)
                     }
                     <button
                         className="p-3 rounded-full self-center bg-red-600 text-white hover:bg-red-400 active:scale-50 transition-all  shadow-md shadow-black hover:shadow-lg hover:shadow-black"

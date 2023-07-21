@@ -15,7 +15,7 @@ function Search() {
 
     useEffect(() => {
         dispatch(getSearchResult({ data, axios }))
-    }, [data])
+    }, [data,dispatch,axios])
 
     useEffect(() => {
         if (error) {
@@ -24,7 +24,7 @@ function Search() {
                 dispatch(revokeNotify())
             })
         }
-    }, [dispatch, error, message])
+    }, [ dispatch,error, message])
 
     return (
         <div className='fixed w-full top-20 overflow-auto scroll-hide h-[90%] bg-indigo-900'>

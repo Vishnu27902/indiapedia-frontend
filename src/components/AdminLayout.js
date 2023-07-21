@@ -1,5 +1,5 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { toggleRole } from "../features/roleSlice";
 
@@ -11,14 +11,15 @@ function AdminLayout() {
     const error = useSelector((state) => state.notification.error)
 
     const { username, role } = useSelector((state) => state.auth)
-    
-    const dispatch=useDispatch()
+
+    const dispatch = useDispatch()
     const location = useLocation()
     const from = location?.state?.from || "/home"
 
-    useEffect(()=>{
-        dispatch(dispatch(toggleRole("admin")))
-    })
+    useEffect(() => {
+        dispatch(toggleRole("admin"))
+    }, [dispatch])
+
     return (
         <>
             {

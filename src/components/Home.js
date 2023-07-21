@@ -14,7 +14,7 @@ function Home() {
     useEffect(() => {
         dispatch(toggle({ option: "home", active: true }))
         return () => dispatch(toggle({ option: "home", active: false }))
-    },[])
+    },[dispatch])
 
     return (
         <>

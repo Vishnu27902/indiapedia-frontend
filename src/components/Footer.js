@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCopyright } from "@fortawesome/free-solid-svg-icons"
+import { memo } from "react"
 
 function Footer() {
     return (
@@ -41,4 +42,4 @@ function Footer() {
     )
 }
 
-export default Footer
+export default memo(Footer)

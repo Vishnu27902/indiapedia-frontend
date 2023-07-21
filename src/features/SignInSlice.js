@@ -29,6 +29,10 @@ const signIn = createSlice({
         resetSignIn: (state) => {
             state.username = ""
             state.password = ""
+            state.validUsername = false
+            state.validPassword = false
+            state.validSignIn = false
+            state.ACCESS_TOKEN = undefined
         },
         setAccessToken: (state, action) => {
             state.ACCESS_TOKEN = action.payload

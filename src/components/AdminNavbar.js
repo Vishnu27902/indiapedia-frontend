@@ -96,7 +96,6 @@ function AdminNavbar() {
                             setTimeout(() => {
                                 dispatch(revokeNotify())
                             }, 3000)
-                            window.location.href = "/home"
                         }}
                     >
                         Sign Out

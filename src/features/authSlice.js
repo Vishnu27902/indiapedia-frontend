@@ -21,7 +21,6 @@ export const getAccessToken = createAsyncThunk("auth/signIn", async ({ username,
 })
 
 export const signOut = createAsyncThunk("auth/signOut", async () => {
-    console.log("hello")
     await axios.get("/auth/logout")
 })
 
@@ -70,7 +69,7 @@ const authSlice = createSlice({
                 state.message = MESSAGE.error
             })
             .addCase(signOut.fulfilled, (state, action) => {
-                state.success = true
+                state.success = false
                 state.error = false
                 state.message = MESSAGE.success
             })

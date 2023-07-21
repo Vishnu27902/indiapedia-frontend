@@ -18,14 +18,21 @@ function AdminStates() {
 
     const handlePageChange = (data) => {
         dispatch(setPageSelected(data.selected))
-        dispatch(getAllStates({ axios: axios }))
-        dispatch(getStates({ pageSelected, limit, axios: axios }))
+    }
+
+    useEffect(() => {
         document.title = "IndiaPedia - States"
         dispatch(toggle({ type: "states", active: true }))
         return (() => {
             dispatch(toggle({ type: "states", active: false }))
         })
-    }
+    }, [dispatch])
+
+
+    useEffect(() => {
+        dispatch(getAllStates({ axios: axios }))
+        dispatch(getStates({ pageSelected, limit, axios: axios }))
+    }, [pageSelected, limit, axios, dispatch])
 
     useEffect(() => {
         if (error) {
@@ -34,7 +41,7 @@ function AdminStates() {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [error, message])
+    }, [dispatch, error, message])
 
     return (
         <>

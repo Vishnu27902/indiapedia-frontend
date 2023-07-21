@@ -28,8 +28,8 @@ function States() {
         return (() => {
             dispatch(toggle({ option: "states", active: false }))
         })
-    }, [])
-    
+    }, [dispatch, limit, pageSelected, axios, role])
+
     useEffect(() => {
         if (error) {
             dispatch(notify({ status: "error", message }))
@@ -37,7 +37,7 @@ function States() {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [ error, message])
+    }, [dispatch, error, message])
 
     return (
         <>

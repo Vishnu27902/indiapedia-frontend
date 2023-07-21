@@ -29,7 +29,7 @@ function Posts({ data, type }) {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [error, success])
+    }, [dispatch, error, success, message])
 
     function handleSend() {
         dispatch(postComment({ axios, type, comment, id }))

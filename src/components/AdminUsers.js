@@ -28,7 +28,7 @@ function AdminStates() {
         return (() => {
             dispatch(toggle({ type: "users", active: false }))
         })
-    }, [dispatch, axios])
+    }, [dispatch, axios, limit, pageSelected])
 
     useEffect(() => {
         if (error) {
@@ -37,7 +37,7 @@ function AdminStates() {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [error, message])
+    }, [dispatch, error, message])
 
     return (
         <>

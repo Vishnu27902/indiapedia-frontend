@@ -5,6 +5,7 @@ function SearchCard({ state }) {
     const name = state.name.length > 12 ? state.name.slice(0, 12) + "..." : state.name
     const mainContent = state.mainContent.find((content) => content.category === "description")?.content
     const description = mainContent?.length ? mainContent.slice(0, 200) + "..." : mainContent
+    
     return (
         <>
             <div className=' flex flex-col justify-center shrink-0 relative m-3 w-60 md:w-72 bg-slate-900 text-white h-96 p-3 rounded-tl-[100px] rounded-br-[100px] shadow-2xl transition-all duration-75  hover:shadow-black hover:outline outline-orange-500 hover:scale-[1.03] active:scale-[0.97]'>

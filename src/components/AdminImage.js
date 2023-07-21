@@ -27,7 +27,7 @@ function AdminImage({ rootDispatch }) {
                 dispatchImg({ type: "data", payload: data })
             })
         }
-        else{
+        else {
             dispatchImg({ type: "data", payload: "" })
         }
     }

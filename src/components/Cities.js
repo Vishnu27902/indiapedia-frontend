@@ -27,7 +27,7 @@ function Cities() {
         return (() => {
             dispatch(toggle({ option: "cities", active: false }))
         })
-    }, [])
+    }, [axios, pageSelected, limit, dispatch])
 
     useEffect(() => {
         if (error) {
@@ -36,7 +36,7 @@ function Cities() {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [error, message])
+    }, [dispatch, error, message])
 
     return (
         <>
