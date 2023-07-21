@@ -22,26 +22,22 @@ function AdminStates() {
 
     useEffect(() => {
         dispatch(getAllUsers({ axios }))
-    }, [dispatch, axios])
-
-    useEffect(() => {
         dispatch(getUsers({ pageSelected, limit, axios: axios }))
-    }, [dispatch, pageSelected, limit, axios])
-
-    useEffect(() => {
         document.title = "IndiaPedia - Users"
         dispatch(toggle({ type: "users", active: true }))
         return (() => {
             dispatch(toggle({ type: "users", active: false }))
         })
-    }, [dispatch])
+    }, [dispatch, axios])
 
-    if (error) {
-        dispatch(notify({ status: "error", message }))
-        setTimeout(() => {
-            dispatch(revokeNotify())
-        }, 3000)
-    }
+    useEffect(() => {
+        if (error) {
+            dispatch(notify({ status: "error", message }))
+            setTimeout(() => {
+                dispatch(revokeNotify())
+            }, 3000)
+        }
+    }, [error, message])
 
     return (
         <>

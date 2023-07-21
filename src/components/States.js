@@ -22,20 +22,14 @@ function States() {
 
     useEffect(() => {
         dispatch(getAllStates({ axios, role }))
-    }, [dispatch, axios, role])
-
-    useEffect(() => {
         dispatch(getStates({ pageSelected, limit, axios: axios, role }))
-    }, [dispatch, pageSelected, limit, axios, role])
-
-    useEffect(() => {
         document.title = "IndiaPedia - Cities"
         dispatch(toggle({ option: "states", active: true }))
         return (() => {
             dispatch(toggle({ option: "states", active: false }))
         })
-    }, [dispatch])
-
+    }, [])
+    
     useEffect(() => {
         if (error) {
             dispatch(notify({ status: "error", message }))
@@ -43,7 +37,7 @@ function States() {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    }, [dispatch, error, message])
+    }, [ error, message])
 
     return (
         <>

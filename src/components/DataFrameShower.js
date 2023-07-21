@@ -6,9 +6,10 @@ import HeadingThree from "./HeadingThree"
 import IFrame from "./IFrame"
 import Image from "./Image"
 import List from "./List"
+import Posts from "./Posts"
 import Table from "./Table"
 
-function DataFrameShower({ data }) {
+function DataFrameShower({ data,type }) {
     const { name, mainContent } = data
     function injector(data) {
         const { category } = data
@@ -64,6 +65,10 @@ function DataFrameShower({ data }) {
                         })
                     }
                 </div>
+                <Posts
+                    data={data.impression.comment}
+                    type={type}
+                />
             </div>
         </>
     )

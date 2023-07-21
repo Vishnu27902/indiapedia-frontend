@@ -33,7 +33,7 @@ function DataFrame({ type }) {
                 dispatch(revokeNotify())
             }, 3000)
         }
-    })
+    }, [error, message])
 
     const { doOpen } = useSelector((state) => state.mainFrameSidebar)
     return (
@@ -58,6 +58,7 @@ function DataFrame({ type }) {
                         ? <Loading />
                         : <DataFrameShower
                             data={data}
+                            type={type}
                         />
                 }
                 <Footer />

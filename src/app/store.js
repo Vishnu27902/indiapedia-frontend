@@ -20,6 +20,7 @@ import statesReducer from "../features/statesSlice";
 import citiesReducer from "../features/citiesSlice";
 import mainFrameSidebarReducer from "../features/mainFrameSidebarSlice";
 import dataFrameReducer from "../features/dataFrameSlice";
+import postReducer from "../features/postSlice";
 
 export const store = configureStore({
     reducer: {
@@ -43,6 +44,7 @@ export const store = configureStore({
         states: statesReducer,
         cities: citiesReducer,
         mainFrameSidebar: mainFrameSidebarReducer,
-        dataFrame: dataFrameReducer
+        dataFrame: dataFrameReducer,
+        post: postReducer
     }
 })
