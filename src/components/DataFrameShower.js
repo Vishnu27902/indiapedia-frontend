@@ -5,6 +5,8 @@ import HeadingOne from "./HeadingOne"
 import HeadingThree from "./HeadingThree"
 import IFrame from "./IFrame"
 import Image from "./Image"
+import List from "./List"
+import Table from "./Table"
 
 function DataFrameShower({ data }) {
     const { name, mainContent } = data
@@ -34,6 +36,14 @@ function DataFrameShower({ data }) {
             case "iframe":
                 return <IFrame
                     data={data.content}
+                />
+            case "table":
+                return <Table
+                    data={data.table}
+                />
+            case "list":
+                return <List
+                    data={data.list}
                 />
             default:
                 throw new Error("No Such Category Exists")
