@@ -4,9 +4,9 @@ import { login, register } from "../features/accountOptionSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleClose } from "../features/navSidebarSlice"
 import { signOut, reset } from "../features/authSlice"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { toggleRole } from "../features/roleSlice"
-import { notify,revokeNotify } from "../features/notificationSlice"
+import { notify, revokeNotify } from "../features/notificationSlice"
 
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
 
@@ -17,7 +17,9 @@ function NavbarSidebar() {
     const statesSelected = useSelector((state) => state.optionSelected.states)
     const citiesSelected = useSelector((state) => state.optionSelected.cities)
     const { username } = useSelector((state) => state.auth)
+
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     return (
         <div
@@ -82,6 +84,7 @@ function NavbarSidebar() {
                                     setTimeout(() => {
                                         dispatch(revokeNotify())
                                     }, 3000)
+                                    navigate("/home")
                                 }}
                             >
                                 <li

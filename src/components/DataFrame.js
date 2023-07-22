@@ -19,6 +19,7 @@ function DataFrame({ type }) {
     const { id } = useParams()
     const { role } = useSelector((state) => state.role)
     const { loading, error, message, data } = useSelector((state) => state.dataFrame)
+    const { doOpen } = useSelector((state) => state.mainFrameSidebar)
 
     useEffect(() => {
         dispatch(getData({ role, type, axios, id }))
@@ -35,7 +36,6 @@ function DataFrame({ type }) {
         }
     }, [dispatch, error, message])
 
-    const { doOpen } = useSelector((state) => state.mainFrameSidebar)
     return (
         <>
             <DataFrameSidebar />
@@ -43,6 +43,7 @@ function DataFrame({ type }) {
                 loading={loading}
                 state={data.name}
                 data={data.flowChart}
+                type={type}
             />
             {
                 doOpen &&
@@ -50,6 +51,7 @@ function DataFrame({ type }) {
                     loading={loading}
                     state={data.name}
                     data={data.flowChart}
+                    type={type}
                 />
             }
             <main className="fixed right-0 flex flex-col items-center pt-2 bg-indigo-950 w-11/12 lg:w-3/4 top-20 overflow-y-auto gap-10 scroll-hide" style={{ "height": "90%" }}>

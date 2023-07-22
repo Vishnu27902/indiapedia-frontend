@@ -9,8 +9,8 @@ const initialState = {
 }
 
 export const postComment = createAsyncThunk("comment/post", async (data) => {
-    const { axios, type, id, message:comment } = data
-    await axios.post(`/user/${type}/${id}/post`, { comment })
+    const { axios, type, id, comment } = data
+    await axios.post(`/user/${type}/${id}/post`, { message: comment })
 })
 
 export const deleteComment = createAsyncThunk("comment/delete", async (data) => {
@@ -54,6 +54,6 @@ const postSlice = createSlice({
     }
 })
 
-export const { resetPost,setComment } = postSlice.actions
+export const { resetPost, setComment } = postSlice.actions
 
 export default postSlice.reducer

@@ -17,13 +17,13 @@ function Posts({ data, type }) {
     const { username } = useSelector((state) => state.auth)
 
     useEffect(() => {
-        if (error) {
+        if (success) {
             dispatch(notify({ status: "success", message }))
             setTimeout(() => {
                 dispatch(revokeNotify())
             }, 3000)
         }
-        if (success) {
+        if (error) {
             dispatch(notify({ status: "error", message }))
             setTimeout(() => {
                 dispatch(revokeNotify())

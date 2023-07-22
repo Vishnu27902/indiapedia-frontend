@@ -1,11 +1,43 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { deleteData } from "../features/dataFrameSlice"
+import { useParams, useNavigate } from "react-router-dom"
+import { notify, revokeNotify } from "../features/notificationSlice"
 import { toggleOpen } from "../features/mainFrameSidebarSlice"
+import { useEffect } from "react"
+
+import useAxios from "../hooks/useAxios"
 import Loading from "./Loading"
 
-function MinScreenCategoryBar({ state, data }) {
+function MinScreenCategoryBar({ state, data, type }) {
     const dispatch = useDispatch()
+    const axios = useAxios()
+    const navigate = useNavigate()
+
+    const { id } = useParams()
+    const { role } = useSelector((state) => state.role)
+    const { success, error, message } = useSelector((state) => state.dataFrame)
+
+    const handleDelete = () => {
+        dispatch(deleteData({ id, axios, type }))
+    }
+
+    useEffect(() => {
+        if (success) {
+            dispatch(notify({ status: "success", message }))
+            setTimeout(() => {
+                dispatch(revokeNotify())
+            }, 3000)
+            navigate(`/admin/${type}`)
+        }
+        if (error) {
+            dispatch(notify({ status: "error", message }))
+            setTimeout(() => {
+                dispatch(revokeNotify())
+            }, 3000)
+        }
+    }, [success, error, dispatch, message, type, navigate])
 
     return (
         <div className="fixed h-full w-full lg:hidden z-40" style={{ "backgroundColor": "rgba(0,0,0,0.5)" }}>
@@ -34,6 +66,19 @@ function MinScreenCategoryBar({ state, data }) {
                         }) || <Loading />
                     }
                 </ul>
+                {
+                    role === "admin" &&
+                    (<div
+                        className="flex items-center justify-center"
+                    >
+                        <button
+                            className="p-3 text-white bg-red-500 w-36 text-center rounded-lg shadow-black shadow-md hover:shadow-black hover:shadow-lg hover:scale-[1.03] active:scale-[0.97] transition-all"
+                            onClick={handleDelete}
+                        >
+                            Delete
+                        </button>
+                    </div>)
+                }
             </div>
         </div>
     )

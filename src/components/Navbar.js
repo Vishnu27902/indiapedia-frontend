@@ -32,7 +32,6 @@ function Navbar() {
     const { username } = useSelector((state) => state.auth)
 
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
 
     function onSearch(e) {
@@ -120,6 +119,7 @@ function Navbar() {
                                 setTimeout(() => {
                                     dispatch(revokeNotify())
                                 }, 3000)
+                                navigate("/home")
                             }}
                         >
                             Sign Out
