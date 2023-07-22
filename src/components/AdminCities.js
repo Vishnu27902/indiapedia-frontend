@@ -9,6 +9,7 @@ import useAxios from "../hooks/useAxios"
 import InfoCard from "./InfoCard"
 import ReactPaginate from "react-paginate"
 import Loading from "./Loading"
+import NoResultFound from "./NoResultFound"
 
 function AdminCities() {
     const { pageCount, limit, pageSelected, cities, loading, error, message } = useSelector((state) => state.adminCities)
@@ -72,15 +73,18 @@ function AdminCities() {
                         style={{ "backgroundColor": `rgba(255,255,255,0.3)` }}
                     >
                         {
-                            loading ? <Loading /> :
-                                cities.map((city) => {
-                                    return (
-                                        <InfoCard
-                                            key={city.code}
-                                            state={city}
-                                        />
-                                    )
-                                })
+                            loading
+                                ? <Loading />
+                                : cities.length === 0
+                                    ? <NoResultFound />
+                                    : cities.map((city) => {
+                                        return (
+                                            <InfoCard
+                                                key={city.code}
+                                                state={city}
+                                            />
+                                        )
+                                    })
                         }
                     </div>
                     <Link

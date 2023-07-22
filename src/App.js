@@ -53,6 +53,7 @@ function App() {
                     <Route path="add" element={<AdminAddUsers />} />
                     <Route path=":id" element={<AdminEditUser />} />
                 </Route>
+                <Route path="search" element={<Search />} />
                 <Route path="dashboard" element={<Dashboard />} />
             </Route>
         </Routes>

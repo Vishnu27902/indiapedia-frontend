@@ -29,7 +29,7 @@ function MinScreenCategoryBar({ state, data, type }) {
             setTimeout(() => {
                 dispatch(revokeNotify())
             }, 3000)
-            navigate(`/admin/${type}`)
+            navigate(`/home/admin/${type}`)
         }
         if (error) {
             dispatch(notify({ status: "error", message }))

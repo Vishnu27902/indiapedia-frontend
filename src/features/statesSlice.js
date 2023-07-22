@@ -13,15 +13,15 @@ const initialState = {
     limit: 8
 }
 
-export const getAllStates = createAsyncThunk(`info/getAllCities`, async (data) => {
+export const getAllStates = createAsyncThunk(`info/getAllStates`, async (data) => {
     const { role, axios } = data
     const result = await axios.get(`${role}/states`)
     return result.data.statesData
 })
 
-export const getStates = createAsyncThunk("info/getCities", async (data) => {
-    const { page, limit, axios, role } = data
-    const result = await axios.get(`${role}/states?page=${page}&limit=${limit}`)
+export const getStates = createAsyncThunk("info/getStates", async (data) => {
+    const { pageSelected, limit, axios, role } = data
+    const result = await axios.get(`${role}/states?page=${pageSelected + 1}&limit=${limit}`)
     return result.data.statesData
 })
 

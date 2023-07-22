@@ -3,20 +3,35 @@ import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons"
 import { toggleIsOpen } from "../features/adminNavbarSidebarSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { reset, signOut } from "../features/authSlice"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { toggleRole } from "../features/roleSlice"
 import { notify, revokeNotify } from "../features/notificationSlice"
+import { setData } from "../features/searchSlice"
+import { useRef, useState } from "react"
 
 import AdminNavbarSidebar from "./AdminNavbarSidebar"
 import Logo from "../images/logo/indiapedia-low-resolution-logo-color-on-transparent-background.png"
 
 const MESSAGE = "Signed Out Successfully"
+const REGEX = /^(\w+\S+)$/
 
 function AdminNavbar() {
+    const [searchData, setSearchData] = useState("")
     const isSidebarOpen = useSelector((state) => state.adminNavbarSidebar.isOpen)
-    const dispatch = useDispatch()
-
     const optionStates = useSelector(state => state.adminNavOption)
+    const dispatch = useDispatch()
+    const inputRef = useRef()
+    const searchRef = useRef()
+    const navigate = useNavigate()
+
+    function onSearch(e) {
+        e.preventDefault()
+        if (REGEX.test(searchData)) {
+            dispatch(setData(searchData))
+            navigate("search")
+            setSearchData("")
+        }
+    }
 
     return (
         <>
@@ -77,10 +92,18 @@ function AdminNavbar() {
                         type="text"
                         placeholder="Search"
                         className="rounded-full text-violet-950 shadow-md shadow-black indent-3 p-1 pr-9 w-auto md:w-72  outline-none transition-all"
+                        ref={inputRef}
+                        value={searchData}
+                        onFocus={(e) => {
+                            searchRef.current.focus()
+                        }}
+                        onChange={(e) => setSearchData(e.target.value)}
                     />
                     <FontAwesomeIcon
                         icon={faSearch}
+                        ref={searchRef}
                         className="absolute cursor-pointer text-slate-700 ml-44 md:ml-60"
+                        onClick={(e) => onSearch(e)}
                     />
                 </form>
                 <div
